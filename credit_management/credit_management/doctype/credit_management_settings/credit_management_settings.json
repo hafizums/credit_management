@@ -1,0 +1,73 @@
+{
+ "actions": [],
+ "creation": "2026-07-04 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "defaults_section",
+  "default_currency",
+  "default_credit_limit",
+  "column_break_1",
+  "block_transactions_on_limit_exceeded",
+  "auto_suspend_on_limit_exceeded"
+ ],
+ "fields": [
+  {
+   "fieldname": "defaults_section",
+   "fieldtype": "Section Break",
+   "label": "Defaults"
+  },
+  {
+   "default": "USD",
+   "fieldname": "default_currency",
+   "fieldtype": "Link",
+   "label": "Default Currency",
+   "options": "Currency"
+  },
+  {
+   "default": "0",
+   "fieldname": "default_credit_limit",
+   "fieldtype": "Currency",
+   "label": "Default Credit Limit",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "block_transactions_on_limit_exceeded",
+   "fieldtype": "Check",
+   "label": "Block Transactions on Limit Exceeded"
+  },
+  {
+   "default": "0",
+   "fieldname": "auto_suspend_on_limit_exceeded",
+   "fieldtype": "Check",
+   "label": "Auto Suspend Account on Limit Exceeded"
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-07-04 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Credit Management",
+ "name": "Credit Management Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

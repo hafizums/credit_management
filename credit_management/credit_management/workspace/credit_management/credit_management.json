@@ -1,0 +1,109 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"cm-header-shortcuts\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"cm-shortcut-account\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Credit Account\",\"col\":4}},{\"id\":\"cm-shortcut-transaction\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Credit Transaction\",\"col\":4}},{\"id\":\"cm-shortcut-settings\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Credit Management Settings\",\"col\":4}},{\"id\":\"cm-spacer-1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"cm-header-masters\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Masters & Transactions</b></span>\",\"col\":12}},{\"id\":\"cm-card-accounts\",\"type\":\"card\",\"data\":{\"card_name\":\"Accounts\",\"col\":4}},{\"id\":\"cm-card-transactions\",\"type\":\"card\",\"data\":{\"card_name\":\"Transactions\",\"col\":4}},{\"id\":\"cm-card-settings\",\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}}]",
+ "creation": "2026-07-04 00:00:00",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "accounting",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Credit Management",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Accounts",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Credit Account",
+   "link_count": 0,
+   "link_to": "Credit Account",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Transactions",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Credit Transaction",
+   "link_count": 0,
+   "link_to": "Credit Transaction",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Settings",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Credit Management Settings",
+   "link_count": 0,
+   "link_to": "Credit Management Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-07-04 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Credit Management",
+ "name": "Credit Management",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [],
+ "sequence_id": 18.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "Credit Account",
+   "link_to": "Credit Account",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Credit Transaction",
+   "link_to": "Credit Transaction",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "Form",
+   "label": "Credit Management Settings",
+   "link_to": "Credit Management Settings",
+   "type": "DocType"
+  }
+ ],
+ "title": "Credit Management"
+}
