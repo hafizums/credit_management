@@ -16,3 +16,14 @@
 | D-010 | Consuming app integration | `credit_management.api` only | Prevents tight coupling and balance drift |
 | D-011 | Scheduler wiring | Stub tasks in Gate 1; logic from Gate 3+ | Safe scaffold without side effects |
 | D-012 | Git workflow | Recommend `git init` in app folder | Bench root is not a git repo today |
+
+## Gate 1.5 — Legacy MVP Cleanup
+
+| ID | Decision | Choice | Rationale |
+|---|---|---|---|
+| D-013 | MVP DocTypes | **Removed** — no backward compatibility | User decision; Gate 2 recreates production models |
+| D-014 | MVP tables | **Dropped** `tabCredit Account`, `tabCredit Transaction` | Obsolete schema; idempotent patch; frees names for Gate 2 |
+| D-015 | MVP singles | **Deleted** `Credit Management Settings` singles rows | Replaced by `Credit Settings` in Gate 2 |
+| D-016 | MVP workspace | **Replaced** with placeholder (no DocType links) | Avoid broken sidebar links until Gate 2/6 |
+| D-017 | `utils/credit.py` | **Removed** | Direct balance mutation violates ledger architecture |
+| D-018 | `install.after_install` | **No-op** until Gate 2 seeding | No MVP settings to initialize |

@@ -25,6 +25,7 @@ Do not mutate balances or ledger rows directly.
 |---|---|
 | 0 Discovery | Complete |
 | 1 Architecture Scaffold | Complete |
+| 1.5 Legacy MVP Cleanup | Complete |
 | 2 Core Ledger | Pending |
 
 ## License

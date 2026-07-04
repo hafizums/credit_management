@@ -1,56 +1,17 @@
-# v1.0 Migration Plan (MVP → Production Platform)
+# v1.0 Patches
 
-## Context
+## Gate 1.5 — `remove_mvp_doctypes` (executed)
 
-`credit_management` is installed on site `jomveo` with MVP DocTypes:
+Removes legacy MVP artifacts:
 
-- `Credit Account` (party/limit model)
-- `Credit Transaction` (direct balance mutation)
-- `Credit Management Settings` (singleton)
+- DocTypes: `Credit Transaction`, `Credit Account`, `Credit Management Settings`
+- Tables dropped: `tabCredit Transaction`, `tabCredit Account`
+- Singles cleaned: `Credit Management Settings`
+- Workspace `Credit Management` removed from DB by patch, then re-synced as placeholder
 
-## Gate 2 execution plan
+**Idempotent:** safe if DocTypes/tables already absent.
 
-### Phase A — Backup & inventory
+## Gate 2 (planned)
 
-1. Export any MVP `Credit Account` / `Credit Transaction` rows (if present).
-2. Document row counts in patch log.
-
-### Phase B — Retire MVP DocTypes
-
-| MVP DocType | Action | Replacement |
-|---|---|---|
-| `Credit Transaction` | Delete DocType + table `tabCredit Transaction` | `Credit Ledger Entry` |
-| `Credit Management Settings` | Delete DocType + singles | `Credit Settings` |
-| `Credit Account` | Delete DocType + table | New `Credit Account` (owner + credit_type model) |
-
-### Phase C — Install production DocTypes
-
-Gate 2 adds:
-
-- `Credit Type`
-- `Credit Account` (new schema)
-- `Credit Ledger Entry`
-- `Credit Settings`
-
-### Phase D — Workspace
-
-Replace workspace shortcuts to point at new DocTypes.
-
-### Phase E — Code removal
-
-Remove after patch succeeds:
-
-- `credit_management/credit_management/utils/credit.py`
-- MVP doctype folders under `doctype/credit_transaction/`, `doctype/credit_management_settings/`
-- MVP `credit_account/` controllers tied to limit/outstanding model
-
-### Safety rules
-
-- Patches must be idempotent (`if frappe.db.exists(...)` guards).
-- No direct SQL balance updates outside services.
-- Run `bench --site jomveo migrate` and full test suite after patch.
-
-## Patch files (to be added in Gate 2)
-
-- `patches/v1_0/remove_mvp_doctypes.py`
-- `patches/v1_0/seed_credit_types.py`
+- `seed_credit_types.py` — seed default Credit Types
+- Production DocType JSON sync via migrate

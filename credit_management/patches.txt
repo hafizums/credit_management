@@ -1,0 +1,2 @@
+credit_management.patches.v1_0.remove_mvp_doctypes
+credit_management.patches.v1_0.drop_mvp_tables
