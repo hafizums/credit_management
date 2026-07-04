@@ -34,9 +34,9 @@ class TestGate1Scaffold(unittest.TestCase):
 		}
 		self.assertTrue(expected.issubset(set(api.__all__)))
 
-	def test_gate3_plus_api_stubs_raise_not_implemented(self):
+	def test_gate4_plus_api_stubs_raise_not_implemented(self):
 		with self.assertRaises(NotImplementedError):
-			api.reserve_credits("User", "Administrator", "GENERAL", 1)
+			api.refund_credits("User", "Administrator", "GENERAL", 1)
 
 	def test_exception_hierarchy(self):
 		self.assertTrue(issubclass(InsufficientCreditError, CreditManagementError))
@@ -58,8 +58,10 @@ class TestGate1Scaffold(unittest.TestCase):
 	def test_scheduler_tasks_importable(self):
 		from credit_management import tasks
 
+		self.assertTrue(hasattr(tasks, "release_expired_reservations"))
+		self.assertEqual(tasks.release_expired_reservations()["status"], "completed")
+
 		for name in (
-			"release_expired_reservations",
 			"reconcile_recent_accounts",
 			"expire_credits",
 			"generate_daily_credit_summary",

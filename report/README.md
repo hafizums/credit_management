@@ -8,7 +8,7 @@ Gate-by-gate implementation summaries for the production `credit_management` pla
 | 1 | Architecture Scaffold | Complete | [gate_1_architecture_scaffold.md](gate_1_architecture_scaffold.md) |
 | 1.5 | Legacy MVP Cleanup | Complete | [gate_1_5_legacy_cleanup.md](gate_1_5_legacy_cleanup.md) |
 | 2 | Core Ledger | Complete | [gate_2_core_ledger.md](gate_2_core_ledger.md) |
-| 3 | Reservations | Pending | — |
+| 3 | Reservations | Complete | [gate_3_reservations.md](gate_3_reservations.md) |
 | 4 | Expiry Lots | Pending | — |
 | 5 | Transfers and Adjustments | Pending | — |
 | 6 | Permissions and Workspace | Pending | — |

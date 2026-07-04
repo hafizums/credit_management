@@ -1,0 +1,142 @@
+{
+ "actions": [],
+ "autoname": "format:CR-{#####}",
+ "creation": "2026-07-04 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "credit_account",
+  "credit_type",
+  "reserved_amount",
+  "consumed_amount",
+  "released_amount",
+  "status",
+  "reference_section",
+  "reference_doctype",
+  "reference_name",
+  "source_app",
+  "expires_at",
+  "idempotency_key",
+  "metadata_json",
+  "failure_reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "credit_account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Credit Account",
+   "options": "Credit Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "credit_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Credit Type",
+   "options": "Credit Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "reserved_amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Reserved Amount",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "consumed_amount",
+   "fieldtype": "Float",
+   "label": "Consumed Amount"
+  },
+  {
+   "default": "0",
+   "fieldname": "released_amount",
+   "fieldtype": "Float",
+   "label": "Released Amount"
+  },
+  {
+   "default": "Active",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Active\nPartially Consumed\nConsumed\nReleased\nExpired\nCancelled",
+   "reqd": 1
+  },
+  {
+   "fieldname": "reference_section",
+   "fieldtype": "Section Break",
+   "label": "Reference"
+  },
+  {
+   "fieldname": "reference_doctype",
+   "fieldtype": "Link",
+   "label": "Reference DocType",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "reference_name",
+   "fieldtype": "Dynamic Link",
+   "label": "Reference Name",
+   "options": "reference_doctype"
+  },
+  {
+   "fieldname": "source_app",
+   "fieldtype": "Data",
+   "label": "Source App"
+  },
+  {
+   "fieldname": "expires_at",
+   "fieldtype": "Datetime",
+   "label": "Expires At"
+  },
+  {
+   "fieldname": "idempotency_key",
+   "fieldtype": "Data",
+   "label": "Idempotency Key",
+   "unique": 1
+  },
+  {
+   "fieldname": "metadata_json",
+   "fieldtype": "JSON",
+   "label": "Metadata JSON"
+  },
+  {
+   "fieldname": "failure_reason",
+   "fieldtype": "Small Text",
+   "label": "Failure Reason"
+  }
+ ],
+ "links": [
+  {
+   "group": "Ledger",
+   "link_doctype": "Credit Ledger Entry",
+   "link_fieldname": "reference_name"
+  }
+ ],
+ "modified": "2026-07-04 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Credit Management",
+ "name": "Credit Reservation",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -2,13 +2,15 @@
 # License: MIT. See LICENSE
 
 """
-Scheduler entry points. Business logic will be delegated to services from Gate 3+.
+Scheduler entry points. Business logic is delegated to services.
 """
+
+from credit_management.services.reservation_service import ReservationService
 
 
 def release_expired_reservations():
 	"""Hourly: release active reservations past expires_at."""
-	return {"status": "stub", "task": "release_expired_reservations"}
+	return ReservationService.release_expired_reservations()
 
 
 def reconcile_recent_accounts():

@@ -8,11 +8,12 @@ All balance-changing operations must go through this module.
 Do not mutate Credit Account balances or ledger rows from outside services.
 """
 
-_NOT_IMPLEMENTED = "Not implemented — available from Gate 3 onward."
+_NOT_IMPLEMENTED = "Not implemented — available from Gate 4 onward."
 
 from credit_management.services.account_service import AccountService
 from credit_management.services.consume_service import ConsumeService
 from credit_management.services.grant_service import GrantService
+from credit_management.services.reservation_service import ReservationService
 
 
 def get_or_create_account(owner_doctype, owner_name, credit_type, company=None):
@@ -88,7 +89,18 @@ def reserve_credits(
 	source_app=None,
 	metadata=None,
 ):
-	raise NotImplementedError(_NOT_IMPLEMENTED)
+	return ReservationService.reserve_credits(
+		owner_doctype,
+		owner_name,
+		credit_type,
+		amount,
+		reference_doctype=reference_doctype,
+		reference_name=reference_name,
+		expires_at=expires_at,
+		idempotency_key=idempotency_key,
+		source_app=source_app,
+		metadata=metadata,
+	)
 
 
 def consume_reserved_credits(
@@ -98,11 +110,21 @@ def consume_reserved_credits(
 	source_app=None,
 	metadata=None,
 ):
-	raise NotImplementedError(_NOT_IMPLEMENTED)
+	return ReservationService.consume_reserved_credits(
+		reservation_name,
+		actual_amount=actual_amount,
+		idempotency_key=idempotency_key,
+		source_app=source_app,
+		metadata=metadata,
+	)
 
 
 def release_reservation(reservation_name, reason=None, idempotency_key=None):
-	raise NotImplementedError(_NOT_IMPLEMENTED)
+	return ReservationService.release_reservation(
+		reservation_name,
+		reason=reason,
+		idempotency_key=idempotency_key,
+	)
 
 
 def refund_credits(

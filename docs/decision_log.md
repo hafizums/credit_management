@@ -42,3 +42,25 @@
 | D-026 | Generic owner identifiers | `ignore_links` on service-layer account insert | Dynamic Link field retained; API supports non-document owner IDs |
 | D-027 | Balance cache writes | `frappe.db.set_value` in `update_balances()` | Avoids Dynamic Link re-validation on every grant/consume save |
 | D-028 | Patch execution order | INI `patches.txt` with `[post_model_sync]` for seeding | Old-format patches ran before DocType sync and failed |
+
+## Gate 3 — Prerequisites (approved constraints)
+
+| ID | Decision | Choice | Rationale |
+|---|---|---|---|
+| D-029 | Gate 2 API stability | **No behavior changes** to Gate 2 public functions unless bugfix | Approved Gate 2 contract must not drift |
+| D-030 | Idempotency key scope | **Operation-specific** keys per lifecycle step (`:reserve`, `:consume-reserved`, `:release`) | Prevents cross-operation replay collisions |
+| D-031 | Reserved consume path | **Separate logic** from direct `CONSUME`; must reduce `reserved_balance` | Direct consume does not touch reserved balance |
+| D-032 | Reservation tests | **Async-style lifecycle** tests (reserve → consume/release + idempotency) | Mirrors real integrating-app retry patterns |
+| D-033 | Ledger immutability | **Append-only** preserved for reservation entry types | Consistent with D-007 / D-023 |
+
+## Gate 3 — Reservations
+
+| ID | Decision | Choice | Rationale |
+|---|---|---|---|
+| D-034 | Ledger entry type names | **Keep** `RESERVE`, `RELEASE_RESERVE`, `CONSUME_RESERVE` from Gate 2 select list | No rename needed; already committed in schema |
+| D-035 | Partial consume policy | **Auto-release remainder** in same operation; final status `Consumed` | Matches recommended async workload pattern |
+| D-036 | Partial consume idempotency | Primary key on `CONSUME_RESERVE`; auto-release uses `{key}:auto-release` | Operation-specific keys without collision |
+| D-037 | Default reservation timeout | `Credit Settings.default_reservation_timeout_minutes`, fallback **60** minutes | Safe default when setting missing or zero |
+| D-038 | Expire scheduler idempotency | `reservation:{name}:expire` on `RELEASE_RESERVE` | Safe to run hourly; replays skip existing ledger row |
+| D-039 | Reserve owner links | `ignore_links` on reservation insert | Same generic-owner pattern as Gate 2 accounts |
+| D-040 | Release status mapping | `Expired` (scheduler), `Cancelled` (reason contains cancel), else `Released` | Supports failure/cancel/timeout semantics |

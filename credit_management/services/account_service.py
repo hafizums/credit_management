@@ -144,14 +144,22 @@ class AccountService:
 		return bool(settings.allow_negative_balance_default)
 
 	@staticmethod
-	def validate_account_can_consume(account):
+	def _validate_account_is_active(account, action):
 		if account.status in ("Suspended", "Closed"):
 			frappe.throw(
-				_("Credit Account {0} is {1} and cannot consume credits").format(
-					account.name, account.status.lower()
+				_("Credit Account {0} is {1} and cannot {2}").format(
+					account.name, account.status.lower(), action
 				),
 				CreditAccountSuspendedError,
 			)
+
+	@staticmethod
+	def validate_account_can_consume(account):
+		AccountService._validate_account_is_active(account, "consume credits")
+
+	@staticmethod
+	def validate_account_can_reserve(account):
+		AccountService._validate_account_is_active(account, "reserve credits")
 
 	@staticmethod
 	def validate_sufficient_balance(account, amount):
