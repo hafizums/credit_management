@@ -43,6 +43,7 @@ def seed_credit_settings():
 		return
 
 	settings = frappe.get_single("Credit Settings")
+	settings.reload()
 	settings.allow_negative_balance_default = 0
 	settings.enable_credit_expiry = 0
 	settings.default_reservation_timeout_minutes = 30
@@ -52,3 +53,36 @@ def seed_credit_settings():
 	settings.balance_reconciliation_enabled = 0
 	settings.low_balance_threshold_default = 0
 	settings.save(ignore_permissions=True)
+
+
+def gate_3_1_api_smoke():
+	"""Grant → reserve → release smoke check for public reservation API."""
+	import credit_management.api as api
+
+	owner_doctype = "User"
+	owner_name = "gate3-api-smoke"
+	credit_type = "GENERAL"
+	reserve_key = "gate3-api-smoke:reserve"
+	release_key = "gate3-api-smoke:release"
+
+	seed_defaults()
+	api.grant_credits(owner_doctype, owner_name, credit_type, 10, idempotency_key="gate3-api-smoke:grant")
+
+	reserve = api.reserve_credits(
+		owner_doctype=owner_doctype,
+		owner_name=owner_name,
+		credit_type=credit_type,
+		amount=1,
+		idempotency_key=reserve_key,
+	)
+	release = api.release_reservation(
+		reservation_name=reserve["reservation"],
+		reason="gate 3.1 smoke cleanup",
+		idempotency_key=release_key,
+	)
+
+	return {
+		"reserve": reserve,
+		"release": release,
+		"balance": api.get_balance(owner_doctype, owner_name, credit_type),
+	}

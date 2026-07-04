@@ -90,10 +90,10 @@ def reserve_credits(
 	metadata=None,
 ):
 	return ReservationService.reserve_credits(
-		owner_doctype,
-		owner_name,
-		credit_type,
-		amount,
+		owner_doctype=owner_doctype,
+		owner_name=owner_name,
+		credit_type=credit_type,
+		amount=amount,
 		reference_doctype=reference_doctype,
 		reference_name=reference_name,
 		expires_at=expires_at,
@@ -111,7 +111,7 @@ def consume_reserved_credits(
 	metadata=None,
 ):
 	return ReservationService.consume_reserved_credits(
-		reservation_name,
+		reservation_name=reservation_name,
 		actual_amount=actual_amount,
 		idempotency_key=idempotency_key,
 		source_app=source_app,
@@ -121,7 +121,7 @@ def consume_reserved_credits(
 
 def release_reservation(reservation_name, reason=None, idempotency_key=None):
 	return ReservationService.release_reservation(
-		reservation_name,
+		reservation_name=reservation_name,
 		reason=reason,
 		idempotency_key=idempotency_key,
 	)
