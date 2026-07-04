@@ -1,0 +1,172 @@
+{
+ "actions": [],
+ "autoname": "format:CIL-{#####}",
+ "creation": "2026-07-04 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "operation",
+  "status",
+  "source_app",
+  "idempotency_key",
+  "column_break_main",
+  "created_by_user",
+  "credit_account",
+  "ledger_entry",
+  "reservation",
+  "reference_section",
+  "reference_doctype",
+  "reference_name",
+  "payload_section",
+  "request_json",
+  "response_json",
+  "error_message",
+  "metadata_json"
+ ],
+ "fields": [
+  {
+   "fieldname": "operation",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Operation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Success\nFailed\nReplayed\nBlocked",
+   "reqd": 1
+  },
+  {
+   "fieldname": "source_app",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Source App"
+  },
+  {
+   "fieldname": "idempotency_key",
+   "fieldtype": "Data",
+   "label": "Idempotency Key"
+  },
+  {
+   "fieldname": "column_break_main",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "created_by_user",
+   "fieldtype": "Link",
+   "label": "Created By User",
+   "options": "User"
+  },
+  {
+   "fieldname": "credit_account",
+   "fieldtype": "Link",
+   "label": "Credit Account",
+   "options": "Credit Account"
+  },
+  {
+   "fieldname": "ledger_entry",
+   "fieldtype": "Link",
+   "label": "Ledger Entry",
+   "options": "Credit Ledger Entry"
+  },
+  {
+   "fieldname": "reservation",
+   "fieldtype": "Link",
+   "label": "Reservation",
+   "options": "Credit Reservation"
+  },
+  {
+   "fieldname": "reference_section",
+   "fieldtype": "Section Break",
+   "label": "Reference"
+  },
+  {
+   "fieldname": "reference_doctype",
+   "fieldtype": "Link",
+   "label": "Reference DocType",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "reference_name",
+   "fieldtype": "Dynamic Link",
+   "label": "Reference Name",
+   "options": "reference_doctype"
+  },
+  {
+   "fieldname": "payload_section",
+   "fieldtype": "Section Break",
+   "label": "Payload"
+  },
+  {
+   "fieldname": "request_json",
+   "fieldtype": "Long Text",
+   "label": "Request JSON"
+  },
+  {
+   "fieldname": "response_json",
+   "fieldtype": "Long Text",
+   "label": "Response JSON"
+  },
+  {
+   "fieldname": "error_message",
+   "fieldtype": "Small Text",
+   "label": "Error Message"
+  },
+  {
+   "fieldname": "metadata_json",
+   "fieldtype": "Long Text",
+   "label": "Metadata JSON"
+  }
+ ],
+ "links": [],
+ "modified": "2026-07-04 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Credit Management",
+ "name": "Credit Integration Log",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 0
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Credit Manager"
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Credit Auditor"
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Credit Developer"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

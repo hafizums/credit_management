@@ -1,37 +1,21 @@
 # Copyright (c) 2026, Hafiz and contributors
 # License: MIT. See LICENSE
 
-"""
-Stable public integration surface for consuming Frappe apps.
+"""Optional whitelisted REST wrappers over the trusted Python API."""
 
-All balance-changing operations must go through this module.
-Do not mutate Credit Account balances or ledger rows from outside services.
-"""
+import frappe
 
-from credit_management.integration_logging import with_integration_logging
-from credit_management.services.account_service import AccountService
-from credit_management.services.adjustment_service import AdjustmentService
-from credit_management.services.consume_service import ConsumeService
-from credit_management.services.expiry_service import ExpiryService
-from credit_management.services.grant_service import GrantService
-from credit_management.services.refund_service import RefundService
-from credit_management.services.reservation_service import ReservationService
-from credit_management.services.reconciliation_service import ReconciliationService
-from credit_management.services.transfer_service import TransferService
+import credit_management.api as api
+from credit_management.rest_permissions import authorize
 
 
-def get_or_create_account(owner_doctype, owner_name, credit_type, company=None):
-	account = AccountService.get_or_create_account(
-		owner_doctype, owner_name, credit_type, company
-	)
-	return account.name
-
-
+@frappe.whitelist()
 def get_balance(owner_doctype, owner_name, credit_type, company=None):
-	return AccountService.get_balance(owner_doctype, owner_name, credit_type, company)
+	authorize("get_balance", owner_doctype=owner_doctype, owner_name=owner_name)
+	return api.get_balance(owner_doctype, owner_name, credit_type, company)
 
 
-@with_integration_logging("grant_credits")
+@frappe.whitelist()
 def grant_credits(
 	owner_doctype,
 	owner_name,
@@ -44,7 +28,8 @@ def grant_credits(
 	source_app=None,
 	metadata=None,
 ):
-	return GrantService.grant_credits(
+	authorize("grant_credits")
+	return api.grant_credits(
 		owner_doctype,
 		owner_name,
 		credit_type,
@@ -58,7 +43,7 @@ def grant_credits(
 	)
 
 
-@with_integration_logging("consume_credits")
+@frappe.whitelist()
 def consume_credits(
 	owner_doctype,
 	owner_name,
@@ -70,7 +55,8 @@ def consume_credits(
 	source_app=None,
 	metadata=None,
 ):
-	return ConsumeService.consume_credits(
+	authorize("consume_credits")
+	return api.consume_credits(
 		owner_doctype,
 		owner_name,
 		credit_type,
@@ -83,7 +69,7 @@ def consume_credits(
 	)
 
 
-@with_integration_logging("reserve_credits")
+@frappe.whitelist()
 def reserve_credits(
 	owner_doctype,
 	owner_name,
@@ -96,7 +82,8 @@ def reserve_credits(
 	source_app=None,
 	metadata=None,
 ):
-	return ReservationService.reserve_credits(
+	authorize("reserve_credits")
+	return api.reserve_credits(
 		owner_doctype=owner_doctype,
 		owner_name=owner_name,
 		credit_type=credit_type,
@@ -110,7 +97,7 @@ def reserve_credits(
 	)
 
 
-@with_integration_logging("consume_reserved_credits")
+@frappe.whitelist()
 def consume_reserved_credits(
 	reservation_name,
 	actual_amount=None,
@@ -118,7 +105,8 @@ def consume_reserved_credits(
 	source_app=None,
 	metadata=None,
 ):
-	return ReservationService.consume_reserved_credits(
+	authorize("consume_reserved_credits")
+	return api.consume_reserved_credits(
 		reservation_name=reservation_name,
 		actual_amount=actual_amount,
 		idempotency_key=idempotency_key,
@@ -127,16 +115,17 @@ def consume_reserved_credits(
 	)
 
 
-@with_integration_logging("release_reservation")
+@frappe.whitelist()
 def release_reservation(reservation_name, reason=None, idempotency_key=None):
-	return ReservationService.release_reservation(
+	authorize("release_reservation")
+	return api.release_reservation(
 		reservation_name=reservation_name,
 		reason=reason,
 		idempotency_key=idempotency_key,
 	)
 
 
-@with_integration_logging("refund_credits")
+@frappe.whitelist()
 def refund_credits(
 	owner_doctype,
 	owner_name,
@@ -148,7 +137,8 @@ def refund_credits(
 	source_app=None,
 	metadata=None,
 ):
-	return RefundService.refund_credits(
+	authorize("refund_credits")
+	return api.refund_credits(
 		owner_doctype,
 		owner_name,
 		credit_type,
@@ -161,7 +151,7 @@ def refund_credits(
 	)
 
 
-@with_integration_logging("adjust_credits")
+@frappe.whitelist()
 def adjust_credits(
 	owner_doctype,
 	owner_name,
@@ -170,7 +160,8 @@ def adjust_credits(
 	reason,
 	idempotency_key=None,
 ):
-	return AdjustmentService.adjust_credits(
+	authorize("adjust_credits")
+	return api.adjust_credits(
 		owner_doctype,
 		owner_name,
 		credit_type,
@@ -180,7 +171,7 @@ def adjust_credits(
 	)
 
 
-@with_integration_logging("transfer_credits")
+@frappe.whitelist()
 def transfer_credits(
 	from_account,
 	to_account,
@@ -190,7 +181,8 @@ def transfer_credits(
 	reference_name=None,
 	idempotency_key=None,
 ):
-	return TransferService.transfer_credits(
+	authorize("transfer_credits")
+	return api.transfer_credits(
 		from_account,
 		to_account,
 		credit_type,
@@ -201,33 +193,19 @@ def transfer_credits(
 	)
 
 
-@with_integration_logging("expire_credits")
+@frappe.whitelist()
 def expire_credits():
-	return ExpiryService.expire_credits()
+	authorize("expire_credits")
+	return api.expire_credits()
 
 
-@with_integration_logging("reconcile_account")
+@frappe.whitelist()
 def reconcile_account(credit_account):
-	return ReconciliationService.reconcile_account(credit_account)
+	authorize("reconcile_account")
+	return api.reconcile_account(credit_account)
 
 
-@with_integration_logging("reconcile_all_accounts")
+@frappe.whitelist()
 def reconcile_all_accounts():
-	return ReconciliationService.reconcile_all_accounts()
-
-
-__all__ = [
-	"get_or_create_account",
-	"get_balance",
-	"grant_credits",
-	"consume_credits",
-	"reserve_credits",
-	"consume_reserved_credits",
-	"release_reservation",
-	"refund_credits",
-	"adjust_credits",
-	"transfer_credits",
-	"expire_credits",
-	"reconcile_account",
-	"reconcile_all_accounts",
-]
+	authorize("reconcile_all_accounts")
+	return api.reconcile_all_accounts()

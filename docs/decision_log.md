@@ -115,3 +115,16 @@
 | D-069 | Credit User reports | `Credit Balance Report` and `Credit Ledger Report` only, with ownership filters | Safe user-level visibility; other reports privileged-only |
 | D-070 | Reconciliation runs | Append-only `Credit Reconciliation Run` records; read-only after insert | Audit trail for checks without mutating source data |
 | D-071 | Recent reconciliation | Hourly task reconciles accounts with ledger/account activity in last 24h | Bounded scheduler workload |
+
+## Gate 8 — Integration Layer
+
+| ID | Decision | Choice | Rationale |
+|---|---|---|---|
+| D-072 | Integration logs | Append-only `Credit Integration Log`; toggle via `enable_integration_logs` | Audit trail for public API without mutating operational data |
+| D-073 | Log redaction | Sanitize `api_key`, `token`, `authorization`, and related secret keys before persistence | Safe audit/debug without storing credentials |
+| D-074 | Webhook events | Append-only `Credit Webhook Event`; gated by `enable_webhooks` | External integration visibility without requiring delivery |
+| D-075 | Webhook delivery | Pending when no `webhook_target_url`; HTTP POST when configured; no fake success | Honest delivery state for operators |
+| D-076 | Webhook retries | Cron retry honors `max_retries` and `webhook_retry_interval_minutes`; skips Delivered/Cancelled | Bounded retry without infinite loops |
+| D-077 | REST API | Optional whitelisted `rest_api.py` wrappers gated by `enable_rest_api` | Trusted Python API remains primary; REST is opt-in |
+| D-078 | REST authorization | Credit User read-own `get_balance` only; Manager/System Manager mutations; Auditor/Developer read/reconcile only | No weakening of Gate 6 Desk permissions |
+| D-079 | Daily summary | Scheduler returns ledger-derived dict; no summary DocType in Gate 8 | Lightweight operational metrics |

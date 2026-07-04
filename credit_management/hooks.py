@@ -105,6 +105,8 @@ permission_query_conditions = {
 	"Credit Transfer": "credit_management.permissions.get_credit_transfer_query_conditions",
 	"Credit Type": "credit_management.permissions.get_credit_type_query_conditions",
 	"Credit Settings": "credit_management.permissions.get_credit_settings_query_conditions",
+	"Credit Integration Log": "credit_management.permissions.get_credit_integration_log_query_conditions",
+	"Credit Webhook Event": "credit_management.permissions.get_credit_webhook_event_query_conditions",
 }
 
 has_permission = {
@@ -116,6 +118,8 @@ has_permission = {
 	"Credit Transfer": "credit_management.permissions.has_credit_transfer_permission",
 	"Credit Type": "credit_management.permissions.has_credit_type_permission",
 	"Credit Settings": "credit_management.permissions.has_credit_settings_permission",
+	"Credit Integration Log": "credit_management.permissions.has_credit_integration_log_permission",
+	"Credit Webhook Event": "credit_management.permissions.has_credit_webhook_event_permission",
 }
 
 # DocType Class

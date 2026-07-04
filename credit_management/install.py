@@ -64,6 +64,9 @@ def seed_credit_settings():
 	settings.default_reservation_timeout_minutes = 30
 	settings.enable_rest_api = 0
 	settings.enable_webhooks = 0
+	settings.enable_integration_logs = 1
+	settings.webhook_max_retries = 5
+	settings.webhook_retry_interval_minutes = 30
 	settings.audit_log_retention_days = 365
 	settings.balance_reconciliation_enabled = 0
 	settings.low_balance_threshold_default = 0

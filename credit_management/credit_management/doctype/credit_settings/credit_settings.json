@@ -13,7 +13,12 @@
   "integration_section",
   "enable_rest_api",
   "enable_webhooks",
+  "enable_integration_logs",
   "column_break_integration",
+  "webhook_target_url",
+  "webhook_max_retries",
+  "webhook_retry_interval_minutes",
+  "column_break_webhook",
   "audit_log_retention_days",
   "balance_reconciliation_enabled"
  ],
@@ -70,7 +75,36 @@
    "label": "Enable Webhooks"
   },
   {
+   "default": "1",
+   "fieldname": "enable_integration_logs",
+   "fieldtype": "Check",
+   "label": "Enable Integration Logs"
+  },
+  {
    "fieldname": "column_break_integration",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "webhook_target_url",
+   "fieldtype": "Small Text",
+   "label": "Webhook Target URL"
+  },
+  {
+   "default": "5",
+   "fieldname": "webhook_max_retries",
+   "fieldtype": "Int",
+   "label": "Webhook Max Retries",
+   "non_negative": 1
+  },
+  {
+   "default": "30",
+   "fieldname": "webhook_retry_interval_minutes",
+   "fieldtype": "Int",
+   "label": "Webhook Retry Interval (Minutes)",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "column_break_webhook",
    "fieldtype": "Column Break"
   },
   {

@@ -248,3 +248,33 @@ def has_credit_settings_permission(doc, ptype, user):
 			return False
 		return None
 	return None
+
+
+def get_credit_integration_log_query_conditions(user, doctype=None):
+	if not user:
+		user = frappe.session.user
+	if _is_administrator(user) or _has_privileged_read(user):
+		return ""
+	return "`tabCredit Integration Log`.`name` = ''"
+
+
+def has_credit_integration_log_permission(doc, ptype, user):
+	if not user:
+		user = frappe.session.user
+	if _is_administrator(user):
+		return True
+	if _credit_user_only(user):
+		return False
+	if _has_privileged_read(user):
+		if ptype in MUTATION_PTYPES:
+			return False
+		return None
+	return None
+
+
+def get_credit_webhook_event_query_conditions(user, doctype=None):
+	return get_credit_integration_log_query_conditions(user, doctype)
+
+
+def has_credit_webhook_event_permission(doc, ptype, user):
+	return has_credit_integration_log_permission(doc, ptype, user)

@@ -34,11 +34,11 @@ class TestGate1Scaffold(unittest.TestCase):
 		}
 		self.assertTrue(expected.issubset(set(api.__all__)))
 
-	def test_gate8_plus_scheduler_stubs_remain(self):
+	def test_gate8_scheduler_tasks_implemented(self):
 		from credit_management import tasks
 
-		self.assertEqual(tasks.generate_daily_credit_summary()["status"], "stub")
-		self.assertEqual(tasks.retry_failed_webhooks()["status"], "stub")
+		self.assertEqual(tasks.generate_daily_credit_summary()["status"], "completed")
+		self.assertEqual(tasks.retry_failed_webhooks()["status"], "completed")
 
 	def test_expire_credits_public_api(self):
 		result = api.expire_credits()
@@ -73,4 +73,4 @@ class TestGate1Scaffold(unittest.TestCase):
 
 		for name in ("generate_daily_credit_summary", "retry_failed_webhooks"):
 			self.assertTrue(hasattr(tasks, name))
-			self.assertEqual(tasks.__dict__[name]()["status"], "stub")
+			self.assertEqual(tasks.__dict__[name]()["status"], "completed")

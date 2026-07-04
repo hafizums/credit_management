@@ -5,9 +5,11 @@
 Scheduler entry points. Business logic is delegated to services.
 """
 
+from credit_management.services.daily_summary_service import DailySummaryService
 from credit_management.services.expiry_service import ExpiryService
 from credit_management.services.reconciliation_service import ReconciliationService
 from credit_management.services.reservation_service import ReservationService
+from credit_management.services.webhook_service import WebhookService
 
 
 def release_expired_reservations():
@@ -27,9 +29,9 @@ def expire_credits():
 
 def generate_daily_credit_summary():
 	"""Daily: aggregate credit metrics for dashboard/reporting."""
-	return {"status": "stub", "task": "generate_daily_credit_summary"}
+	return DailySummaryService.generate_daily_credit_summary()
 
 
 def retry_failed_webhooks():
 	"""Periodic: retry outbound Credit Webhook Event deliveries."""
-	return {"status": "stub", "task": "retry_failed_webhooks"}
+	return WebhookService.retry_failed_webhooks()
