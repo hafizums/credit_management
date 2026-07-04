@@ -1,0 +1,159 @@
+{
+ "actions": [],
+ "creation": "2026-07-04 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "account_owner_doctype",
+  "account_owner_name",
+  "credit_type",
+  "company",
+  "status",
+  "balances_section",
+  "current_balance",
+  "reserved_balance",
+  "available_balance",
+  "column_break_balances",
+  "lifetime_granted",
+  "lifetime_consumed",
+  "lifetime_expired",
+  "audit_section",
+  "last_reconciled_on",
+  "metadata_json"
+ ],
+ "fields": [
+  {
+   "fieldname": "account_owner_doctype",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Account Owner DocType",
+   "options": "DocType",
+   "reqd": 1
+  },
+  {
+   "fieldname": "account_owner_name",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
+   "label": "Account Owner Name",
+   "options": "account_owner_doctype",
+   "reqd": 1
+  },
+  {
+   "fieldname": "credit_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Credit Type",
+   "options": "Credit Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "label": "Company"
+  },
+  {
+   "default": "Active",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Active\nSuspended\nClosed"
+  },
+  {
+   "fieldname": "balances_section",
+   "fieldtype": "Section Break",
+   "label": "Balances"
+  },
+  {
+   "default": "0",
+   "fieldname": "current_balance",
+   "fieldtype": "Float",
+   "label": "Current Balance",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "reserved_balance",
+   "fieldtype": "Float",
+   "label": "Reserved Balance",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "available_balance",
+   "fieldtype": "Float",
+   "label": "Available Balance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_balances",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "lifetime_granted",
+   "fieldtype": "Float",
+   "label": "Lifetime Granted",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "lifetime_consumed",
+   "fieldtype": "Float",
+   "label": "Lifetime Consumed",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "lifetime_expired",
+   "fieldtype": "Float",
+   "label": "Lifetime Expired",
+   "read_only": 1
+  },
+  {
+   "fieldname": "audit_section",
+   "fieldtype": "Section Break",
+   "label": "Audit"
+  },
+  {
+   "fieldname": "last_reconciled_on",
+   "fieldtype": "Datetime",
+   "label": "Last Reconciled On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "metadata_json",
+   "fieldtype": "JSON",
+   "label": "Metadata JSON"
+  }
+ ],
+ "links": [
+  {
+   "group": "Ledger",
+   "link_doctype": "Credit Ledger Entry",
+   "link_fieldname": "credit_account"
+  }
+ ],
+ "modified": "2026-07-04 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Credit Management",
+ "name": "Credit Account",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

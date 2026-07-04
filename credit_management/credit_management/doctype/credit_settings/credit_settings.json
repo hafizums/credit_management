@@ -1,0 +1,112 @@
+{
+ "actions": [],
+ "creation": "2026-07-04 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "defaults_section",
+  "allow_negative_balance_default",
+  "low_balance_threshold_default",
+  "column_break_defaults",
+  "default_reservation_timeout_minutes",
+  "enable_credit_expiry",
+  "integration_section",
+  "enable_rest_api",
+  "enable_webhooks",
+  "column_break_integration",
+  "audit_log_retention_days",
+  "balance_reconciliation_enabled"
+ ],
+ "fields": [
+  {
+   "fieldname": "defaults_section",
+   "fieldtype": "Section Break",
+   "label": "Defaults"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_negative_balance_default",
+   "fieldtype": "Check",
+   "label": "Allow Negative Balance Default"
+  },
+  {
+   "default": "0",
+   "fieldname": "low_balance_threshold_default",
+   "fieldtype": "Float",
+   "label": "Low Balance Threshold Default"
+  },
+  {
+   "fieldname": "column_break_defaults",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "30",
+   "fieldname": "default_reservation_timeout_minutes",
+   "fieldtype": "Int",
+   "label": "Default Reservation Timeout (Minutes)",
+   "non_negative": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_credit_expiry",
+   "fieldtype": "Check",
+   "label": "Enable Credit Expiry"
+  },
+  {
+   "fieldname": "integration_section",
+   "fieldtype": "Section Break",
+   "label": "Integration"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_rest_api",
+   "fieldtype": "Check",
+   "label": "Enable REST API"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_webhooks",
+   "fieldtype": "Check",
+   "label": "Enable Webhooks"
+  },
+  {
+   "fieldname": "column_break_integration",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "365",
+   "fieldname": "audit_log_retention_days",
+   "fieldtype": "Int",
+   "label": "Audit Log Retention Days",
+   "non_negative": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "balance_reconciliation_enabled",
+   "fieldtype": "Check",
+   "label": "Balance Reconciliation Enabled"
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-07-04 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Credit Management",
+ "name": "Credit Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

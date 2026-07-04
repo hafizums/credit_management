@@ -34,9 +34,9 @@ class TestGate1Scaffold(unittest.TestCase):
 		}
 		self.assertTrue(expected.issubset(set(api.__all__)))
 
-	def test_api_stubs_raise_not_implemented(self):
+	def test_gate3_plus_api_stubs_raise_not_implemented(self):
 		with self.assertRaises(NotImplementedError):
-			api.get_balance("User", "Administrator", "GENERAL")
+			api.reserve_credits("User", "Administrator", "GENERAL", 1)
 
 	def test_exception_hierarchy(self):
 		self.assertTrue(issubclass(InsufficientCreditError, CreditManagementError))

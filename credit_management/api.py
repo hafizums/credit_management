@@ -8,15 +8,22 @@ All balance-changing operations must go through this module.
 Do not mutate Credit Account balances or ledger rows from outside services.
 """
 
-_NOT_IMPLEMENTED = "Not implemented — available from Gate 2 onward."
+_NOT_IMPLEMENTED = "Not implemented — available from Gate 3 onward."
+
+from credit_management.services.account_service import AccountService
+from credit_management.services.consume_service import ConsumeService
+from credit_management.services.grant_service import GrantService
 
 
 def get_or_create_account(owner_doctype, owner_name, credit_type, company=None):
-	raise NotImplementedError(_NOT_IMPLEMENTED)
+	account = AccountService.get_or_create_account(
+		owner_doctype, owner_name, credit_type, company
+	)
+	return account.name
 
 
 def get_balance(owner_doctype, owner_name, credit_type, company=None):
-	raise NotImplementedError(_NOT_IMPLEMENTED)
+	return AccountService.get_balance(owner_doctype, owner_name, credit_type, company)
 
 
 def grant_credits(
@@ -31,7 +38,18 @@ def grant_credits(
 	source_app=None,
 	metadata=None,
 ):
-	raise NotImplementedError(_NOT_IMPLEMENTED)
+	return GrantService.grant_credits(
+		owner_doctype,
+		owner_name,
+		credit_type,
+		amount,
+		reference_doctype=reference_doctype,
+		reference_name=reference_name,
+		expires_on=expires_on,
+		idempotency_key=idempotency_key,
+		source_app=source_app,
+		metadata=metadata,
+	)
 
 
 def consume_credits(
@@ -45,7 +63,17 @@ def consume_credits(
 	source_app=None,
 	metadata=None,
 ):
-	raise NotImplementedError(_NOT_IMPLEMENTED)
+	return ConsumeService.consume_credits(
+		owner_doctype,
+		owner_name,
+		credit_type,
+		amount,
+		reference_doctype=reference_doctype,
+		reference_name=reference_name,
+		idempotency_key=idempotency_key,
+		source_app=source_app,
+		metadata=metadata,
+	)
 
 
 def reserve_credits(

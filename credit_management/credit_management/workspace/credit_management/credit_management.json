@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"cm-gate2-placeholder\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Credit Management Platform</b></span>\",\"col\":12}},{\"id\":\"cm-gate2-note\",\"type\":\"paragraph\",\"data\":{\"text\":\"Production DocTypes and shortcuts will be added in Gate 2 (Core Ledger).\",\"col\":12}}]",
+ "content": "[{\"id\":\"cm-header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Credit Management Platform</b></span>\",\"col\":12}},{\"id\":\"cm-desc\",\"type\":\"paragraph\",\"data\":{\"text\":\"Core ledger foundation — accounts, types, and append-only ledger entries.\",\"col\":12}}]",
  "creation": "2026-07-04 00:00:00",
  "custom_blocks": [],
  "docstatus": 0,
@@ -11,7 +11,64 @@
  "idx": 0,
  "is_hidden": 0,
  "label": "Credit Management",
- "links": [],
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Setup",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Credit Type",
+   "link_count": 0,
+   "link_to": "Credit Type",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Credit Settings",
+   "link_count": 0,
+   "link_to": "Credit Settings",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Ledger",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Credit Account",
+   "link_count": 0,
+   "link_to": "Credit Account",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Credit Ledger Entry",
+   "link_count": 0,
+   "link_to": "Credit Ledger Entry",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  }
+ ],
  "modified": "2026-07-04 00:00:00",
  "modified_by": "Administrator",
  "module": "Credit Management",
@@ -24,6 +81,28 @@
  "restrict_to_domain": "",
  "roles": [],
  "sequence_id": 18.0,
- "shortcuts": [],
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "Credit Account",
+   "link_to": "Credit Account",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Credit Ledger Entry",
+   "link_to": "Credit Ledger Entry",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Credit Type",
+   "link_to": "Credit Type",
+   "type": "DocType"
+  }
+ ],
  "title": "Credit Management"
 }

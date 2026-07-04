@@ -1,2 +1,7 @@
+[pre_model_sync]
 credit_management.patches.v1_0.remove_mvp_doctypes
 credit_management.patches.v1_0.drop_mvp_tables
+
+[post_model_sync]
+credit_management.patches.v1_0.seed_gate2_defaults
+credit_management.patches.v1_0.sync_gate2_workspace

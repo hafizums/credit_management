@@ -146,7 +146,7 @@ scheduler_events = {
 # Testing
 # -------
 
-# before_tests = "credit_management.install.before_tests"
+before_tests = "credit_management.install.before_tests"
 
 # Overriding Methods
 # ------------------------------
