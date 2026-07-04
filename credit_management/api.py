@@ -8,10 +8,11 @@ All balance-changing operations must go through this module.
 Do not mutate Credit Account balances or ledger rows from outside services.
 """
 
-_NOT_IMPLEMENTED = "Not implemented — available from Gate 4 onward."
+_NOT_IMPLEMENTED = "Not implemented — available from Gate 5 onward."
 
 from credit_management.services.account_service import AccountService
 from credit_management.services.consume_service import ConsumeService
+from credit_management.services.expiry_service import ExpiryService
 from credit_management.services.grant_service import GrantService
 from credit_management.services.reservation_service import ReservationService
 
@@ -165,7 +166,7 @@ def transfer_credits(
 
 
 def expire_credits():
-	raise NotImplementedError(_NOT_IMPLEMENTED)
+	return ExpiryService.expire_credits()
 
 
 def reconcile_account(credit_account):

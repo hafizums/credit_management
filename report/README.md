@@ -11,6 +11,7 @@ Gate-by-gate implementation summaries for the production `credit_management` pla
 | 3 | Reservations | Complete | [gate_3_reservations.md](gate_3_reservations.md) |
 | 3.1 | Reservation Public API Fix | Complete | [gate_3_1_reservation_api_fix.md](gate_3_1_reservation_api_fix.md) |
 | 4 | Expiry Lots | Complete | [gate_4_expiry_lots.md](gate_4_expiry_lots.md) |
+| 4.1 | Expiry Public API Cleanup | Complete | [gate_4_1_expiry_api_cleanup.md](gate_4_1_expiry_api_cleanup.md) |
 | 5 | Transfers and Adjustments | Pending | — |
 | 6 | Permissions and Workspace | Pending | — |
 | 7 | Reports and Reconciliation | Pending | — |
