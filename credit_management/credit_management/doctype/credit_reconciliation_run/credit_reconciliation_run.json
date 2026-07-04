@@ -1,0 +1,260 @@
+{
+ "actions": [],
+ "autoname": "format:CRR-{#####}",
+ "creation": "2026-07-04 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "credit_account",
+  "run_type",
+  "status",
+  "balance_section",
+  "expected_current_balance",
+  "actual_current_balance",
+  "expected_reserved_balance",
+  "actual_reserved_balance",
+  "expected_available_balance",
+  "actual_available_balance",
+  "difference_section",
+  "current_difference",
+  "reserved_difference",
+  "available_difference",
+  "lot_section",
+  "lot_remaining_total",
+  "lot_reserved_total",
+  "lot_consumed_total",
+  "lot_expired_total",
+  "summary_section",
+  "checked_accounts",
+  "mismatch_count",
+  "error_count",
+  "timing_section",
+  "started_at",
+  "completed_at",
+  "remarks",
+  "details_json"
+ ],
+ "fields": [
+  {
+   "fieldname": "credit_account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Credit Account",
+   "options": "Credit Account"
+  },
+  {
+   "fieldname": "run_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Run Type",
+   "options": "Account\nAll Accounts\nRecent Accounts",
+   "reqd": 1
+  },
+  {
+   "default": "Passed",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Passed\nMismatch\nFailed\nPartial",
+   "reqd": 1
+  },
+  {
+   "fieldname": "balance_section",
+   "fieldtype": "Section Break",
+   "label": "Balances"
+  },
+  {
+   "fieldname": "expected_current_balance",
+   "fieldtype": "Float",
+   "label": "Expected Current Balance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "actual_current_balance",
+   "fieldtype": "Float",
+   "label": "Actual Current Balance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expected_reserved_balance",
+   "fieldtype": "Float",
+   "label": "Expected Reserved Balance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "actual_reserved_balance",
+   "fieldtype": "Float",
+   "label": "Actual Reserved Balance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expected_available_balance",
+   "fieldtype": "Float",
+   "label": "Expected Available Balance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "actual_available_balance",
+   "fieldtype": "Float",
+   "label": "Actual Available Balance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "difference_section",
+   "fieldtype": "Section Break",
+   "label": "Differences"
+  },
+  {
+   "fieldname": "current_difference",
+   "fieldtype": "Float",
+   "label": "Current Difference",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reserved_difference",
+   "fieldtype": "Float",
+   "label": "Reserved Difference",
+   "read_only": 1
+  },
+  {
+   "fieldname": "available_difference",
+   "fieldtype": "Float",
+   "label": "Available Difference",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lot_section",
+   "fieldtype": "Section Break",
+   "label": "Expiry Lots"
+  },
+  {
+   "fieldname": "lot_remaining_total",
+   "fieldtype": "Float",
+   "label": "Lot Remaining Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lot_reserved_total",
+   "fieldtype": "Float",
+   "label": "Lot Reserved Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lot_consumed_total",
+   "fieldtype": "Float",
+   "label": "Lot Consumed Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lot_expired_total",
+   "fieldtype": "Float",
+   "label": "Lot Expired Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_section",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
+   "fieldname": "checked_accounts",
+   "fieldtype": "Int",
+   "label": "Checked Accounts",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mismatch_count",
+   "fieldtype": "Int",
+   "label": "Mismatch Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "error_count",
+   "fieldtype": "Int",
+   "label": "Error Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "timing_section",
+   "fieldtype": "Section Break",
+   "label": "Timing"
+  },
+  {
+   "fieldname": "started_at",
+   "fieldtype": "Datetime",
+   "label": "Started At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks",
+   "read_only": 1
+  },
+  {
+   "fieldname": "details_json",
+   "fieldtype": "JSON",
+   "label": "Details JSON",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-07-04 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Credit Management",
+ "name": "Credit Reconciliation Run",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 0
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Credit Manager",
+   "share": 1,
+   "write": 0
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Credit Auditor"
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Credit Developer"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -213,7 +213,20 @@ class TestGate6PermissionsWorkspace(FrappeTestCase):
 		frappe.set_user(self.credit_user)
 		self.assertFalse(frappe.has_permission("Credit Settings", ptype="read"))
 
-	def test_14_workspace_has_production_links(self):
+	def test_14_workspace_content_references_widgets(self):
+		if not frappe.db.exists("Workspace", "Credit Management"):
+			self.skipTest("Credit Management workspace not installed")
+
+		import json
+
+		workspace = frappe.get_doc("Workspace", "Credit Management")
+		content = json.loads(workspace.content or "[]")
+		types = {block.get("type") for block in content}
+		self.assertIn("shortcut", types)
+		self.assertIn("card", types)
+		self.assertIn("number_card", types)
+
+	def test_15_workspace_has_production_links(self):
 		if not frappe.db.exists("Workspace", "Credit Management"):
 			self.skipTest("Credit Management workspace not installed")
 
@@ -229,7 +242,7 @@ class TestGate6PermissionsWorkspace(FrappeTestCase):
 		missing = PRODUCTION_WORKSPACE_DOCTYPES - linked
 		self.assertFalse(missing, f"Workspace missing production links: {missing}")
 
-	def test_15_workspace_has_no_old_mvp_links(self):
+	def test_16_workspace_has_no_old_mvp_links(self):
 		if not frappe.db.exists("Workspace", "Credit Management"):
 			self.skipTest("Credit Management workspace not installed")
 
@@ -245,28 +258,28 @@ class TestGate6PermissionsWorkspace(FrappeTestCase):
 		stale = linked.intersection(STALE_MVP_DOCTYPES)
 		self.assertFalse(stale, f"Workspace contains stale MVP links: {stale}")
 
-	def test_16_gate2_tests_still_pass(self):
+	def test_17_gate2_tests_still_pass(self):
 		from credit_management.tests.test_gate2_core_ledger import TestGate2CoreLedger
 
 		suite = unittest.TestLoader().loadTestsFromTestCase(TestGate2CoreLedger)
 		result = unittest.TextTestRunner().run(suite)
 		self.assertTrue(result.wasSuccessful())
 
-	def test_17_gate3_tests_still_pass(self):
+	def test_18_gate3_tests_still_pass(self):
 		from credit_management.tests.test_gate3_reservations import TestGate3Reservations
 
 		suite = unittest.TestLoader().loadTestsFromTestCase(TestGate3Reservations)
 		result = unittest.TextTestRunner().run(suite)
 		self.assertTrue(result.wasSuccessful())
 
-	def test_18_gate4_tests_still_pass(self):
+	def test_19_gate4_tests_still_pass(self):
 		from credit_management.tests.test_gate4_expiry_lots import TestGate4ExpiryLots
 
 		suite = unittest.TestLoader().loadTestsFromTestCase(TestGate4ExpiryLots)
 		result = unittest.TextTestRunner().run(suite)
 		self.assertTrue(result.wasSuccessful())
 
-	def test_19_gate5_tests_still_pass(self):
+	def test_20_gate5_tests_still_pass(self):
 		from credit_management.tests.test_gate5_transfers_adjustments import (
 			TestGate5TransfersAdjustments,
 		)

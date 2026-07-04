@@ -112,3 +112,7 @@ def _sync_workspace():
 		row for row in workspace.shortcuts if row.link_to not in STALE_MVP_DOCTYPES
 	]
 	workspace.save(ignore_permissions=True)
+
+	from credit_management.workspace_content import apply_workspace_content
+
+	apply_workspace_content(workspace)

@@ -32,6 +32,7 @@ Do not mutate balances or ledger rows directly.
 | 4 Expiry Lots | Complete |
 | 5 Transfers and Adjustments | Complete |
 | 6 Permissions and Workspace | Complete |
+| 7 Reports and Reconciliation | Complete |
 
 ## License
 

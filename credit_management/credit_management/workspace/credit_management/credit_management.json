@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"cm-header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Credit Management Platform</b></span>\",\"col\":12}},{\"id\":\"cm-desc\",\"type\":\"paragraph\",\"data\":{\"text\":\"Production ledger, reservations, expiry lots, transfers, and administrative controls.\",\"col\":12}}]",
+ "content": "[{\"id\": \"cm-header\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Credit Management Platform</b></span>\", \"col\": 12}}, {\"id\": \"cm-desc\", \"type\": \"paragraph\", \"data\": {\"text\": \"Ledger, reservations, expiry lots, transfers, reconciliation, and reports.\", \"col\": 12}}, {\"id\": \"cm-metrics-header\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Metrics</b></span>\", \"col\": 12}}, {\"id\": \"cm-nc-0\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Total Credit Accounts\", \"col\": 4}}, {\"id\": \"cm-nc-1\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Active Reservations\", \"col\": 4}}, {\"id\": \"cm-nc-2\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Credits Reserved\", \"col\": 4}}, {\"id\": \"cm-nc-3\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Credits Consumed Today\", \"col\": 4}}, {\"id\": \"cm-nc-4\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Credits Expired Today\", \"col\": 4}}, {\"id\": \"cm-shortcuts-header\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Shortcuts</b></span>\", \"col\": 12}}, {\"id\": \"cm-sc-0\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Credit Account\", \"col\": 3}}, {\"id\": \"cm-sc-1\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Credit Ledger Entry\", \"col\": 3}}, {\"id\": \"cm-sc-2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Credit Reservation\", \"col\": 3}}, {\"id\": \"cm-sc-3\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Credit Grant\", \"col\": 3}}, {\"id\": \"cm-sc-4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Credit Expiry Lot\", \"col\": 3}}, {\"id\": \"cm-sc-5\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Credit Transfer\", \"col\": 3}}, {\"id\": \"cm-sc-6\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Credit Type\", \"col\": 3}}, {\"id\": \"cm-sc-7\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Credit Settings\", \"col\": 3}}, {\"id\": \"cm-spacer-1\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"cm-modules-header\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Modules</b></span>\", \"col\": 12}}, {\"id\": \"cm-card-0\", \"type\": \"card\", \"data\": {\"card_name\": \"Setup\", \"col\": 4}}, {\"id\": \"cm-card-1\", \"type\": \"card\", \"data\": {\"card_name\": \"Accounts & Ledger\", \"col\": 4}}, {\"id\": \"cm-card-2\", \"type\": \"card\", \"data\": {\"card_name\": \"Operations\", \"col\": 4}}, {\"id\": \"cm-card-3\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports\", \"col\": 4}}, {\"id\": \"cm-quick-header\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Recent Activity</b></span>\", \"col\": 12}}, {\"id\": \"cm-ql-0\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Recent Transfers\", \"col\": 12}}]",
  "creation": "2026-07-04 00:00:00",
  "custom_blocks": [],
  "docstatus": 0,
@@ -113,6 +113,114 @@
    "link_count": 0,
    "link_to": "Credit Transfer",
    "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Reports",
+   "link_count": 10,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Credit Balance Report",
+   "link_count": 0,
+   "link_to": "Credit Balance Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Credit Ledger Report",
+   "link_count": 0,
+   "link_to": "Credit Ledger Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Credit Usage by App",
+   "link_count": 0,
+   "link_to": "Credit Usage by App",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Credit Usage by Owner",
+   "link_count": 0,
+   "link_to": "Credit Usage by Owner",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Reservation Aging Report",
+   "link_count": 0,
+   "link_to": "Reservation Aging Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Expired Credits Report",
+   "link_count": 0,
+   "link_to": "Expired Credits Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Reconciliation Report",
+   "link_count": 0,
+   "link_to": "Reconciliation Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Top Credit Consumers",
+   "link_count": 0,
+   "link_to": "Top Credit Consumers",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Credit Grant History",
+   "link_count": 0,
+   "link_to": "Credit Grant History",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Credit Transfer History",
+   "link_count": 0,
+   "link_to": "Credit Transfer History",
+   "link_type": "Report",
    "onboard": 0,
    "type": "Link"
   }

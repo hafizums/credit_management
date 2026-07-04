@@ -6,6 +6,7 @@ Scheduler entry points. Business logic is delegated to services.
 """
 
 from credit_management.services.expiry_service import ExpiryService
+from credit_management.services.reconciliation_service import ReconciliationService
 from credit_management.services.reservation_service import ReservationService
 
 
@@ -16,7 +17,7 @@ def release_expired_reservations():
 
 def reconcile_recent_accounts():
 	"""Hourly: reconcile accounts changed in the recent window."""
-	return {"status": "stub", "task": "reconcile_recent_accounts"}
+	return ReconciliationService.reconcile_recent_accounts()
 
 
 def expire_credits():

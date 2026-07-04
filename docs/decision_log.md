@@ -103,3 +103,15 @@
 | D-062 | Balance edit hardening | Existing `CreditAccount` controller + no Credit User write perms | Prevents cached balance drift outside services |
 | D-063 | Workspace | Production DocType links/shortcuts + number cards + Recent Transfers quick list | Gate 6 navigation finalized; no MVP links |
 | D-064 | Dashboard cards | Lightweight `Number Card` counters now; richer reports deferred to Gate 7 | Operational visibility without full reconciliation reports |
+
+## Gate 7 — Reports and Reconciliation
+
+| ID | Decision | Choice | Rationale |
+|---|---|---|---|
+| D-065 | Reconciliation repair | **Detect only**; no automatic balance repair in Gate 7 | Mismatches must be visible; repairs require explicit future operation |
+| D-066 | Ledger derivation | Replay submitted `Credit Ledger Entry` rows with Gate 5 `REVERSAL` policy | Deterministic expected balances from append-only ledger |
+| D-067 | Lifetime checks | **Warnings only** in `details_json`; do not fail run solely on lifetime drift | Lifetime fields are secondary to current/reserved/available correctness |
+| D-068 | Lot/account inconsistency | Promote Gate 5 reversal desync to mismatch issues | Do not hide lot-vs-account drift after non-lot-restoring reversals |
+| D-069 | Credit User reports | `Credit Balance Report` and `Credit Ledger Report` only, with ownership filters | Safe user-level visibility; other reports privileged-only |
+| D-070 | Reconciliation runs | Append-only `Credit Reconciliation Run` records; read-only after insert | Audit trail for checks without mutating source data |
+| D-071 | Recent reconciliation | Hourly task reconciles accounts with ledger/account activity in last 24h | Bounded scheduler workload |

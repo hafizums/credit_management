@@ -6,3 +6,5 @@ credit_management.patches.v1_0.drop_mvp_tables
 credit_management.patches.v1_0.seed_gate2_defaults
 credit_management.patches.v1_0.sync_gate2_workspace
 credit_management.patches.v1_0.seed_gate6_workspace
+credit_management.patches.v1_0.seed_gate7_workspace
+credit_management.patches.v1_0.fix_workspace_content
