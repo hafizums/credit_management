@@ -1,30 +1,85 @@
 # Reservation Model
 
-> Status: Gate 4 — reservation lot allocations integrated with expiry lots. Constraints below remain binding.
+> Status: Gates 3–9 — production reservation lifecycle
 
-## Gate 3 constraints (approved)
+## Purpose
 
-1. **Do not change Gate 2 public behavior** unless fixing a bug. `get_or_create_account`, `get_balance`, `grant_credits`, and `consume_credits` semantics remain stable.
+Reservations hold credits for **async workloads** (video jobs, AI generation, long exports) so credits are not spent until work succeeds, and can be returned on failure.
 
-2. **Idempotency keys must be operation-specific.** A single business job may use distinct keys per lifecycle step, for example:
-   - `video-job:VID-0001:reserve`
-   - `video-job:VID-0001:consume-reserved`
-   - `video-job:VID-0001:release`
+## Statuses
 
-   Reusing the same key across different operations must not replay the wrong ledger effect.
+| Status | Meaning |
+|---|---|
+| Active | Hold in place; nothing consumed yet |
+| Partially Consumed | Some amount consumed; remainder may be released |
+| Consumed | Fully consumed |
+| Released | Manually released (failure/cancel) |
+| Expired | Scheduler released after `expires_at` |
+| Cancelled | Released with cancel reason |
 
-3. **Reserved consumption is not direct CONSUME.** `consume_reserved_credits` must not reuse direct-credit consume logic without correctly reducing `reserved_balance` (and updating `available_balance` consistently: `available = current - reserved`).
+## Balance effects
 
-4. **Tests must cover an async-style reservation lifecycle.** Include reserve → consume-reserved and reserve → release paths, with idempotency and balance assertions at each step.
-
-5. **Preserve the append-only ledger rule.** Reservation operations create new submitted ledger rows (`RESERVE`, `CONSUME_RESERVE`, `RELEASE_RESERVE`); no in-place edits or cancellations.
-
-## Planned balance effects (Gate 3)
-
-| Operation | `current_balance` | `reserved_balance` | `available_balance` |
+| Operation | current_balance | reserved_balance | available_balance |
 |---|---|---|---|
-| Reserve | unchanged | increases | decreases |
-| Consume reserved | decreases | decreases (by consumed amount) | unchanged net effect from reserve |
-| Release reservation | unchanged | decreases | increases |
+| Reserve | unchanged | +amount | −amount |
+| Consume reserved | −consumed | −consumed | net unchanged from reserve |
+| Release | unchanged | −released | +released |
+| Partial consume | −actual | −actual; remainder released | restored for released portion |
 
-Ledger remains source of truth; `Credit Account` fields stay cached projections updated only through service methods.
+## Reserve behavior
+
+1. Lock account (`FOR UPDATE`)
+2. Validate available balance
+3. Allocate from expiry lots if enabled (FIFO)
+4. Create `RESERVE` ledger entry
+5. Create `Credit Reservation` + lot allocations
+6. Update account reserved/available caches
+
+Default `expires_at` from `Credit Settings.default_reservation_timeout_minutes` (default 30).
+
+## Consume-reserved behavior
+
+- `actual_amount` defaults to full remaining reservation
+- Creates `CONSUME_RESERVE` ledger entry
+- If `actual_amount` < remaining → auto `RELEASE_RESERVE` for difference (partial consume policy)
+- Updates reservation `consumed_amount`, `released_amount`, status
+
+## Release behavior
+
+- Creates `RELEASE_RESERVE` ledger entry
+- Releases remaining unconsumed amount
+- Status: `Released`, `Expired`, or `Cancelled` based on reason/expiry
+
+## Expiry scheduler
+
+`tasks.release_expired_reservations` (hourly) releases Active reservations past `expires_at`.
+
+**Worker crash flow:** If job never completes, reservation expires and credits return to available balance automatically.
+
+## Lot allocation
+
+When expiry is enabled, `Credit Reservation Lot Allocation` links reservation amounts to `Credit Expiry Lot` rows (FIFO). Release/consume updates lot `reserved_amount` accordingly.
+
+## Async job pattern
+
+```
+estimate → reserve → [external work] → consume_reserved OR release_reservation
+```
+
+Each step uses its **own idempotency key**.
+
+## Failure and retry
+
+- Duplicate callback with same idempotency key → `idempotent_replay: True`, no double charge
+- Never consume before provider confirms success
+- Never reuse reserve key for consume operation
+
+## Idempotency examples
+
+```
+video-job:VID-001:reserve
+video-job:VID-001:consume-reserved
+video-job:VID-001:release
+```
+
+See [video_generation_integration.md](video_generation_integration.md) for a complete example.

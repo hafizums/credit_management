@@ -1,6 +1,10 @@
 # Reconciliation
 
-> Status: Gate 7 — production reconciliation and reporting
+> Status: Gate 7–9 — detect-only production reconciliation
+
+## Policy
+
+**Detect-only.** Reconciliation compares ledger-derived expected balances against cached `Credit Account` fields and expiry-lot consistency. It does **not** auto-repair balances or lots.
 
 ## Public API
 
@@ -11,11 +15,11 @@ credit_api.reconcile_account("CA-...")
 credit_api.reconcile_all_accounts()
 ```
 
-Scheduler: `credit_management.tasks.reconcile_recent_accounts()` (hourly).
+Scheduler: `credit_management.tasks.reconcile_recent_accounts()` (hourly; last 24h activity window).
 
-## Balance derivation
+## Ledger-derived balance logic
 
-Expected balances are derived by replaying submitted `Credit Ledger Entry` rows:
+Replay submitted `Credit Ledger Entry` rows:
 
 | Entry type | Current | Reserved |
 |---|---|---|
@@ -23,32 +27,39 @@ Expected balances are derived by replaying submitted `Credit Ledger Entry` rows:
 | CONSUME, CONSUME_RESERVE, ADJUST_OUT, EXPIRE, TRANSFER_OUT | −amount | |
 | RESERVE | | +amount |
 | RELEASE_RESERVE, CONSUME_RESERVE | | −amount |
-| REVERSAL | Opposite of reversed entry's current effect | |
+| REVERSAL | Opposite of reversed entry | |
 
-Then:
+`expected_available = expected_current - expected_reserved`
 
-`expected_available_balance = expected_current_balance - expected_reserved_balance`
+## Lifetime warning policy
 
-Compared against cached `Credit Account` fields.
+`lifetime_granted`, `lifetime_consumed`, `lifetime_expired` drift is recorded as **warnings** in `details_json`. Lifetime alone does not fail a run.
 
-## Lifetime fields
+## Expiry-lot consistency checks
 
-`lifetime_granted`, `lifetime_consumed`, and `lifetime_expired` are also derived and recorded as **warnings** in `details_json` when they drift. They do not alone determine pass/fail.
+- No negative lot remaining/reserved
+- Reserved on lot ≤ remaining on lot
+- Terminal lots have no usable remainder
+- Account reserved ≥ sum of lot reserved
+- Lot remaining totals vs ledger current (Gate 5 reversal drift detection)
 
-## Expiry-lot checks
+## Manual investigation workflow
 
-Per account:
+1. Run `reconcile_account` or open **Reconciliation Report**
+2. Review `Credit Reconciliation Run` — status `Mismatch`
+3. Inspect `details_json` for field-level differences
+4. Trace ledger entries for the account
+5. If test fixture (777 balance) — expected on dev sites with Gate 7 tests
+6. Correct via proper API (`adjust_credits`) after root cause — never direct SQL
 
-- No negative `remaining_amount` or `reserved_amount`
-- `reserved_amount` must not exceed `remaining_amount`
-- Terminal lots (`Exhausted`, `Expired`) must not have usable `remaining - reserved`
-- Account `reserved_balance` must not be less than sum of lot `reserved_amount`
-- Lot remaining totals must not exceed account/ledger-derived current (detects Gate 5 reversal desync)
+## Known Gate 5 reversal / lot drift risk
 
-## Repair behavior
-
-Gate 7 does **not** auto-repair cached balances or expiry lots. `Credit Reconciliation Run` records mismatches only.
+Reversing a GRANT/CONSUME/etc. updates cached balances but **does not** restore expiry-lot allocations. Reconciliation may report lot/account inconsistency afterward.
 
 ## Records
 
-Each reconciliation creates a `Credit Reconciliation Run` with status `Passed`, `Mismatch`, `Failed`, or `Partial` (batch runs).
+Each run creates `Credit Reconciliation Run` (`CRR-{#####}`) with status `Passed`, `Mismatch`, `Failed`, or `Partial` (batch).
+
+## Settings
+
+`Credit Settings.balance_reconciliation_enabled` — feature toggle for service checks (scheduler still runs via task).

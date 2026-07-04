@@ -89,4 +89,27 @@ The **Credit Management** workspace links and shortcuts include all production D
 
 Stale MVP links (`Credit Transaction`, `Credit Management Settings`) are excluded.
 
-Number cards provide lightweight operational counters; richer reporting remains Gate 7.
+Number cards provide lightweight operational counters; ten Script Reports available (Gate 7).
+
+## REST authorization (Gate 8)
+
+When `Credit Settings.enable_rest_api` is enabled, `credit_management.rest_permissions` enforces:
+
+| Operation class | Credit User | Credit Manager | Credit Auditor | Credit Developer | System Manager |
+|---|---|---|---|---|---|
+| `get_balance` | Own User account only | Yes | Yes | Yes | Yes |
+| Mutations (grant, consume, reserve, …) | No | Yes | No | No | Yes |
+| Reconciliation REST | No | Yes | Yes | Yes | Yes |
+
+REST disabled → all endpoints raise `PermissionError`.
+
+See [rest_api.md](rest_api.md).
+
+## Report permissions
+
+- **Credit User:** Credit Balance Report, Credit Ledger Report (own accounts only via `report_utils.py`)
+- **Privileged roles:** All ten reports
+
+## Integration DocType access
+
+`Credit Integration Log` and `Credit Webhook Event`: privileged read (Manager, Auditor, Developer, System Manager). Credit User has no access.

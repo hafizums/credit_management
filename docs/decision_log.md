@@ -128,3 +128,15 @@
 | D-077 | REST API | Optional whitelisted `rest_api.py` wrappers gated by `enable_rest_api` | Trusted Python API remains primary; REST is opt-in |
 | D-078 | REST authorization | Credit User read-own `get_balance` only; Manager/System Manager mutations; Auditor/Developer read/reconcile only | No weakening of Gate 6 Desk permissions |
 | D-079 | Daily summary | Scheduler returns ledger-derived dict; no summary DocType in Gate 8 | Lightweight operational metrics |
+
+## Gate 9 — Documentation and Example Integration
+
+| ID | Decision | Choice | Rationale |
+|---|---|---|---|
+| D-080 | Documentation scope | Complete production docs; no new business features | Gate 9 is documentation-first |
+| D-081 | Integration example | Generic video-generation job pattern in docs only | No video-specific DocTypes in app |
+| D-082 | Unsafe pattern docs | Document anti-patterns explicitly (direct balance/ledger mutation) | Prevent consumer app drift |
+| D-083 | REST auth docs | Document Frappe API keys; no custom auth middleware claimed | Honest security guidance |
+| D-084 | Webhook signatures | Document as future enhancement; not implemented in Gate 8 | No false security claims |
+| D-085 | Reconciliation docs | Emphasize detect-only; no automatic repair documented | Aligns with Gate 7 policy |
+| D-086 | MVP references | MVP names only in migration/history docs | Avoid confusion with production models |

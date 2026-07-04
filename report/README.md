@@ -15,6 +15,7 @@ Gate-by-gate implementation summaries for the production `credit_management` pla
 | 5 | Transfers and Adjustments | Complete | [gate_5_transfers_adjustments.md](gate_5_transfers_adjustments.md) |
 | 6 | Permissions and Workspace | Complete | [gate_6_permissions_workspace.md](gate_6_permissions_workspace.md) |
 | 7 | Reports and Reconciliation | Complete | [gate_7_reports_reconciliation.md](gate_7_reports_reconciliation.md) |
-| 8 | Integration Layer | Pending | — |
-| 9 | Documentation and Example Integration | Pending | — |
+| 7.1 | Reconcile Scheduler Fix | Complete | [gate_7_1_reconcile_scheduler_fix.md](gate_7_1_reconcile_scheduler_fix.md) |
+| 8 | Integration Layer | Complete | [gate_8_integration_layer.md](gate_8_integration_layer.md) |
+| 9 | Documentation and Example Integration | Complete | [gate_9_documentation_example_integration.md](gate_9_documentation_example_integration.md) |
 | 10 | Full Verification | Pending | — |
