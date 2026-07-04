@@ -1,31 +1,40 @@
 {
  "actions": [],
- "autoname": "format:CLE-{#####}",
+ "autoname": "format:CT-{#####}",
  "creation": "2026-07-04 00:00:00",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "credit_account",
+  "from_credit_account",
+  "to_credit_account",
   "credit_type",
-  "entry_type",
   "amount",
-  "balance_after",
-  "reserved_balance_after",
+  "status",
   "reference_section",
   "reference_doctype",
   "reference_name",
-  "source_app",
   "idempotency_key",
+  "source_app",
   "remarks",
   "metadata_json",
-  "reversed_entry"
+  "ledger_section",
+  "transfer_out_ledger_entry",
+  "transfer_in_ledger_entry"
  ],
  "fields": [
   {
-   "fieldname": "credit_account",
+   "fieldname": "from_credit_account",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Credit Account",
+   "label": "From Credit Account",
+   "options": "Credit Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "to_credit_account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "To Credit Account",
    "options": "Credit Account",
    "reqd": 1
   },
@@ -38,14 +47,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "entry_type",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Entry Type",
-   "options": "GRANT\nCONSUME\nREFUND\nADJUST_IN\nADJUST_OUT\nREVERSAL\nRESERVE\nRELEASE_RESERVE\nCONSUME_RESERVE\nEXPIRE\nTRANSFER_IN\nTRANSFER_OUT",
-   "reqd": 1
-  },
-  {
    "fieldname": "amount",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -53,16 +54,13 @@
    "reqd": 1
   },
   {
-   "fieldname": "balance_after",
-   "fieldtype": "Float",
-   "label": "Balance After",
-   "read_only": 1
-  },
-  {
-   "fieldname": "reserved_balance_after",
-   "fieldtype": "Float",
-   "label": "Reserved Balance After",
-   "read_only": 1
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Draft\nCompleted\nCancelled\nReversed",
+   "reqd": 1
   },
   {
    "fieldname": "reference_section",
@@ -82,15 +80,15 @@
    "options": "reference_doctype"
   },
   {
-   "fieldname": "source_app",
-   "fieldtype": "Data",
-   "label": "Source App"
-  },
-  {
    "fieldname": "idempotency_key",
    "fieldtype": "Data",
    "label": "Idempotency Key",
    "unique": 1
+  },
+  {
+   "fieldname": "source_app",
+   "fieldtype": "Data",
+   "label": "Source App"
   },
   {
    "fieldname": "remarks",
@@ -103,25 +101,40 @@
    "label": "Metadata JSON"
   },
   {
-   "fieldname": "reversed_entry",
+   "fieldname": "ledger_section",
+   "fieldtype": "Section Break",
+   "label": "Ledger"
+  },
+  {
+   "fieldname": "transfer_out_ledger_entry",
    "fieldtype": "Link",
-   "label": "Reversed Entry",
+   "label": "Transfer Out Ledger Entry",
+   "options": "Credit Ledger Entry"
+  },
+  {
+   "fieldname": "transfer_in_ledger_entry",
+   "fieldtype": "Link",
+   "label": "Transfer In Ledger Entry",
    "options": "Credit Ledger Entry"
   }
  ],
- "is_submittable": 1,
- "links": [],
+ "links": [
+  {
+   "group": "Ledger",
+   "link_doctype": "Credit Ledger Entry",
+   "link_fieldname": "reference_name"
+  }
+ ],
  "modified": "2026-07-04 00:00:00",
  "modified_by": "Administrator",
  "module": "Credit Management",
- "name": "Credit Ledger Entry",
+ "name": "Credit Transfer",
  "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
-   "cancel": 0,
    "create": 1,
-   "delete": 0,
+   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
@@ -129,7 +142,6 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
-   "submit": 1,
    "write": 1
   }
  ],

@@ -112,6 +112,13 @@ class AccountService:
 		return frappe.get_doc("Credit Account", account_name, for_update=True)
 
 	@staticmethod
+	def lock_accounts_in_order(*account_names):
+		locked = {}
+		for name in sorted(set(account_names)):
+			locked[name] = AccountService.lock_account(name)
+		return locked
+
+	@staticmethod
 	def get_balance(owner_doctype, owner_name, credit_type, company=None):
 		account = AccountService.get_or_create_account(
 			owner_doctype, owner_name, credit_type, company
@@ -160,6 +167,10 @@ class AccountService:
 	@staticmethod
 	def validate_account_can_reserve(account):
 		AccountService._validate_account_is_active(account, "reserve credits")
+
+	@staticmethod
+	def validate_account_can_transfer(account):
+		AccountService._validate_account_is_active(account, "transfer credits")
 
 	@staticmethod
 	def validate_sufficient_balance(account, amount):

@@ -8,13 +8,16 @@ All balance-changing operations must go through this module.
 Do not mutate Credit Account balances or ledger rows from outside services.
 """
 
-_NOT_IMPLEMENTED = "Not implemented — available from Gate 5 onward."
+_NOT_IMPLEMENTED = "Not implemented — available from Gate 7 onward."
 
 from credit_management.services.account_service import AccountService
+from credit_management.services.adjustment_service import AdjustmentService
 from credit_management.services.consume_service import ConsumeService
 from credit_management.services.expiry_service import ExpiryService
 from credit_management.services.grant_service import GrantService
+from credit_management.services.refund_service import RefundService
 from credit_management.services.reservation_service import ReservationService
+from credit_management.services.transfer_service import TransferService
 
 
 def get_or_create_account(owner_doctype, owner_name, credit_type, company=None):
@@ -139,7 +142,17 @@ def refund_credits(
 	source_app=None,
 	metadata=None,
 ):
-	raise NotImplementedError(_NOT_IMPLEMENTED)
+	return RefundService.refund_credits(
+		owner_doctype,
+		owner_name,
+		credit_type,
+		amount,
+		reference_doctype=reference_doctype,
+		reference_name=reference_name,
+		idempotency_key=idempotency_key,
+		source_app=source_app,
+		metadata=metadata,
+	)
 
 
 def adjust_credits(
@@ -150,7 +163,14 @@ def adjust_credits(
 	reason,
 	idempotency_key=None,
 ):
-	raise NotImplementedError(_NOT_IMPLEMENTED)
+	return AdjustmentService.adjust_credits(
+		owner_doctype,
+		owner_name,
+		credit_type,
+		amount,
+		reason,
+		idempotency_key=idempotency_key,
+	)
 
 
 def transfer_credits(
@@ -162,7 +182,15 @@ def transfer_credits(
 	reference_name=None,
 	idempotency_key=None,
 ):
-	raise NotImplementedError(_NOT_IMPLEMENTED)
+	return TransferService.transfer_credits(
+		from_account,
+		to_account,
+		credit_type,
+		amount,
+		reference_doctype=reference_doctype,
+		reference_name=reference_name,
+		idempotency_key=idempotency_key,
+	)
 
 
 def expire_credits():

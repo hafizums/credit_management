@@ -34,9 +34,9 @@ class TestGate1Scaffold(unittest.TestCase):
 		}
 		self.assertTrue(expected.issubset(set(api.__all__)))
 
-	def test_gate5_plus_api_stubs_raise_not_implemented(self):
+	def test_gate7_plus_api_stubs_raise_not_implemented(self):
 		with self.assertRaises(NotImplementedError):
-			api.refund_credits("User", "Administrator", "GENERAL", 1)
+			api.reconcile_account("CA-nonexistent")
 
 	def test_expire_credits_public_api(self):
 		result = api.expire_credits()

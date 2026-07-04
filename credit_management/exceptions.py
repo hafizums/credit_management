@@ -28,3 +28,11 @@ class DuplicateCreditOperationError(CreditManagementError):
 
 class CreditReconciliationError(CreditManagementError):
 	"""Raised when reconciliation detects or cannot resolve a mismatch."""
+
+
+class InvalidCreditTransferError(CreditManagementError):
+	"""Raised when a transfer request is invalid."""
+
+
+class LedgerReversalError(CreditManagementError):
+	"""Raised when a ledger entry cannot be safely reversed."""

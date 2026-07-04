@@ -75,3 +75,17 @@
 | D-044 | Reserved expired-lot policy | Scheduler expires only `remaining - reserved`; release from past-expiry lot **expires immediately** | Reserved hold protected; released credits cannot return to usable pool |
 | D-045 | Expire scheduler idempotency | `expiry-lot:{lot.name}:expire` on `EXPIRE` ledger entry | Safe for daily reruns |
 | D-046 | Partial reserved consume release | Auto-release all unused allocation rows after consume | Consistent with Gate 3 auto-release policy |
+
+## Gate 5 — Transfers and Adjustments
+
+| ID | Decision | Choice | Rationale |
+|---|---|---|---|
+| D-047 | Refund expiry policy | **Non-expiring by default**; no lot restoration without explicit metadata | Safe default; avoids guessing consumed lot mapping |
+| D-048 | Positive adjustment expiry | **Non-expiring** balance increase | Administrative credits should not inherit arbitrary expiry |
+| D-049 | Negative adjustment expiry | **FIFO** consume from active expiry lots, then non-expiring pool | Matches Gate 4 consume semantics for deductions |
+| D-050 | Transfer expiry policy | Source deducts **FIFO** from expiry lots; target receives **non-expiring** balance | Moves usable credits without copying lot expiry to recipient |
+| D-051 | Transfer idempotency | Unique key on `Credit Transfer`; ledger keys `{key}:transfer-out` / `{key}:transfer-in` | Atomic replay without duplicate transfers or ledger rows |
+| D-052 | Transfer row locking | `lock_accounts_in_order()` sorted by account name | Deterministic lock order prevents deadlocks |
+| D-053 | Reversal scope | Support `GRANT`, `CONSUME`, `REFUND`, `ADJUST_IN`, `ADJUST_OUT`, `TRANSFER_IN`, `TRANSFER_OUT` | Gate 5 business entry types; append-only via new `REVERSAL` row |
+| D-054 | Reversal limitations | **No** reservation or `EXPIRE` reversal; **no** expiry-lot restoration on reversal | Unsafe edge cases deferred; balance-only reversal effect |
+| D-055 | Reversal idempotency | Default key `reversal:{entry.name}` on `REVERSAL` ledger entry | Safe retries without duplicate reversals |
