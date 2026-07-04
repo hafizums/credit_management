@@ -180,8 +180,12 @@ class TestGate7ReportsReconciliation(FrappeTestCase):
 
 	def test_11_reconcile_recent_accounts_task_is_not_stub(self):
 		result = tasks.reconcile_recent_accounts()
+		self.assertNotEqual(result.get("status"), "stub")
+		self.assertNotEqual(result, {"status": "stub", "task": "reconcile_recent_accounts"})
 		self.assertEqual(result["status"], "completed")
+		self.assertEqual(result["run_type"], "Recent Accounts")
 		self.assertIn("checked_accounts", result)
+		self.assertIn("reconciliation_run", result)
 
 	def test_12_reconciliation_does_not_mutate_ledger_entries(self):
 		owner = self._owner("ledger-immutable")
