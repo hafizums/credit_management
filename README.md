@@ -16,6 +16,7 @@ Do not mutate balances or ledger rows directly.
 
 - [Architecture](docs/architecture.md)
 - [Public API](docs/public_api.md)
+- [Permissions](docs/permissions.md)
 - [Decision Log](docs/decision_log.md)
 - [v1.0 Migration Plan](patches/v1_0/README.md)
 
@@ -26,7 +27,11 @@ Do not mutate balances or ledger rows directly.
 | 0 Discovery | Complete |
 | 1 Architecture Scaffold | Complete |
 | 1.5 Legacy MVP Cleanup | Complete |
-| 2 Core Ledger | Pending |
+| 2 Core Ledger | Complete |
+| 3 Reservations | Complete |
+| 4 Expiry Lots | Complete |
+| 5 Transfers and Adjustments | Complete |
+| 6 Permissions and Workspace | Complete |
 
 ## License
 

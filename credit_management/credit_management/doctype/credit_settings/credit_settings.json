@@ -104,6 +104,24 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Credit Manager"
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Credit Auditor"
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Credit Developer"
   }
  ],
  "sort_field": "modified",

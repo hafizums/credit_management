@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"cm-header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Credit Management Platform</b></span>\",\"col\":12}},{\"id\":\"cm-desc\",\"type\":\"paragraph\",\"data\":{\"text\":\"Core ledger foundation — accounts, types, and append-only ledger entries.\",\"col\":12}}]",
+ "content": "[{\"id\":\"cm-header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Credit Management Platform</b></span>\",\"col\":12}},{\"id\":\"cm-desc\",\"type\":\"paragraph\",\"data\":{\"text\":\"Production ledger, reservations, expiry lots, transfers, and administrative controls.\",\"col\":12}}]",
  "creation": "2026-07-04 00:00:00",
  "custom_blocks": [],
  "docstatus": 0,
@@ -43,7 +43,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Ledger",
+   "label": "Accounts & Ledger",
    "link_count": 2,
    "onboard": 0,
    "type": "Card Break"
@@ -67,17 +67,92 @@
    "link_type": "DocType",
    "onboard": 1,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Operations",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Credit Reservation",
+   "link_count": 0,
+   "link_to": "Credit Reservation",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Credit Grant",
+   "link_count": 0,
+   "link_to": "Credit Grant",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Credit Expiry Lot",
+   "link_count": 0,
+   "link_to": "Credit Expiry Lot",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Credit Transfer",
+   "link_count": 0,
+   "link_to": "Credit Transfer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
  "modified": "2026-07-04 00:00:00",
  "modified_by": "Administrator",
  "module": "Credit Management",
  "name": "Credit Management",
- "number_cards": [],
+ "number_cards": [
+  {
+   "label": "Total Credit Accounts",
+   "number_card_name": "Total Credit Accounts"
+  },
+  {
+   "label": "Active Reservations",
+   "number_card_name": "Active Reservations"
+  },
+  {
+   "label": "Credits Reserved",
+   "number_card_name": "Credits Reserved"
+  },
+  {
+   "label": "Credits Consumed Today",
+   "number_card_name": "Credits Consumed Today"
+  },
+  {
+   "label": "Credits Expired Today",
+   "number_card_name": "Credits Expired Today"
+  }
+ ],
  "owner": "Administrator",
  "parent_page": "",
  "public": 1,
- "quick_lists": [],
+ "quick_lists": [
+  {
+   "document_type": "Credit Transfer",
+   "label": "Recent Transfers",
+   "quick_list_filter": "[]"
+  }
+ ],
  "restrict_to_domain": "",
  "roles": [],
  "sequence_id": 18.0,
@@ -97,10 +172,45 @@
    "type": "DocType"
   },
   {
+   "color": "Orange",
+   "doc_view": "List",
+   "label": "Credit Reservation",
+   "link_to": "Credit Reservation",
+   "type": "DocType"
+  },
+  {
+   "color": "Purple",
+   "doc_view": "List",
+   "label": "Credit Grant",
+   "link_to": "Credit Grant",
+   "type": "DocType"
+  },
+  {
+   "color": "Yellow",
+   "doc_view": "List",
+   "label": "Credit Expiry Lot",
+   "link_to": "Credit Expiry Lot",
+   "type": "DocType"
+  },
+  {
+   "color": "Red",
+   "doc_view": "List",
+   "label": "Credit Transfer",
+   "link_to": "Credit Transfer",
+   "type": "DocType"
+  },
+  {
    "color": "Grey",
    "doc_view": "List",
    "label": "Credit Type",
    "link_to": "Credit Type",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Credit Settings",
+   "link_to": "Credit Settings",
    "type": "DocType"
   }
  ],

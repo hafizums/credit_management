@@ -89,3 +89,17 @@
 | D-053 | Reversal scope | Support `GRANT`, `CONSUME`, `REFUND`, `ADJUST_IN`, `ADJUST_OUT`, `TRANSFER_IN`, `TRANSFER_OUT` | Gate 5 business entry types; append-only via new `REVERSAL` row |
 | D-054 | Reversal limitations | **No** reservation or `EXPIRE` reversal; **no** expiry-lot restoration on reversal | Unsafe edge cases deferred; balance-only reversal effect |
 | D-055 | Reversal idempotency | Default key `reversal:{entry.name}` on `REVERSAL` ledger entry | Safe retries without duplicate reversals |
+
+## Gate 6 — Permissions and Workspace
+
+| ID | Decision | Choice | Rationale |
+|---|---|---|---|
+| D-056 | Permission mechanism | DocType JSON role perms + `has_permission` + `permission_query_conditions` hooks | Maintainable Frappe v14 pattern; server-side enforcement beyond UI |
+| D-057 | Credit User ownership | `account_owner_doctype == User` and `account_owner_name == session.user` | Generic owner model aligned with Gate 2 accounts |
+| D-058 | Privileged read roles | `Credit Manager`, `Credit Auditor`, `Credit Developer`, `System Manager` bypass ownership filters | Manager/Auditor/Developer operational and audit needs |
+| D-059 | Mutation roles | Only `Credit Manager` and `System Manager` may Desk-mutate operational credit DocTypes | Auditor/Developer remain read-only; Credit User read-only |
+| D-060 | Service API permissions | Keep `ignore_permissions=True` in service-layer writes | Integration API remains server-trusted; Desk permissions are separate layer |
+| D-061 | Ledger Desk hardening | `has_credit_ledger_permission` denies write/cancel/amend/delete on submitted entries | Complements controller append-only rules |
+| D-062 | Balance edit hardening | Existing `CreditAccount` controller + no Credit User write perms | Prevents cached balance drift outside services |
+| D-063 | Workspace | Production DocType links/shortcuts + number cards + Recent Transfers quick list | Gate 6 navigation finalized; no MVP links |
+| D-064 | Dashboard cards | Lightweight `Number Card` counters now; richer reports deferred to Gate 7 | Operational visibility without full reconciliation reports |

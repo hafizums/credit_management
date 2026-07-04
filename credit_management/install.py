@@ -13,8 +13,23 @@ def before_tests():
 
 
 def seed_defaults():
+	seed_credit_roles()
 	seed_credit_type_general()
 	seed_credit_settings()
+
+
+def seed_credit_roles():
+	roles = ("Credit User", "Credit Manager", "Credit Auditor", "Credit Developer")
+	for role_name in roles:
+		if frappe.db.exists("Role", role_name):
+			continue
+		frappe.get_doc(
+			{
+				"doctype": "Role",
+				"role_name": role_name,
+				"desk_access": 1,
+			}
+		).insert(ignore_permissions=True)
 
 
 def seed_credit_type_general():

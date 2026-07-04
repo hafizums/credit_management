@@ -96,13 +96,27 @@ after_install = "credit_management.install.after_install"
 # -----------
 # Permissions evaluated in scripted ways
 
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
-#
-# has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
-# }
+permission_query_conditions = {
+	"Credit Account": "credit_management.permissions.get_credit_account_query_conditions",
+	"Credit Ledger Entry": "credit_management.permissions.get_credit_ledger_query_conditions",
+	"Credit Reservation": "credit_management.permissions.get_credit_reservation_query_conditions",
+	"Credit Grant": "credit_management.permissions.get_credit_grant_query_conditions",
+	"Credit Expiry Lot": "credit_management.permissions.get_credit_expiry_lot_query_conditions",
+	"Credit Transfer": "credit_management.permissions.get_credit_transfer_query_conditions",
+	"Credit Type": "credit_management.permissions.get_credit_type_query_conditions",
+	"Credit Settings": "credit_management.permissions.get_credit_settings_query_conditions",
+}
+
+has_permission = {
+	"Credit Account": "credit_management.permissions.has_credit_account_permission",
+	"Credit Ledger Entry": "credit_management.permissions.has_credit_ledger_permission",
+	"Credit Reservation": "credit_management.permissions.has_credit_reservation_permission",
+	"Credit Grant": "credit_management.permissions.has_credit_grant_permission",
+	"Credit Expiry Lot": "credit_management.permissions.has_credit_expiry_lot_permission",
+	"Credit Transfer": "credit_management.permissions.has_credit_transfer_permission",
+	"Credit Type": "credit_management.permissions.has_credit_type_permission",
+	"Credit Settings": "credit_management.permissions.has_credit_settings_permission",
+}
 
 # DocType Class
 # ---------------
