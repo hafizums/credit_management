@@ -180,6 +180,7 @@ class AccountService:
 		reserved_balance=None,
 		lifetime_granted_delta=0,
 		lifetime_consumed_delta=0,
+		lifetime_expired_delta=0,
 	):
 		account = frappe.get_doc(account) if isinstance(account, str) else account
 
@@ -189,6 +190,7 @@ class AccountService:
 
 		lifetime_granted = flt(account.lifetime_granted) + flt(lifetime_granted_delta)
 		lifetime_consumed = flt(account.lifetime_consumed) + flt(lifetime_consumed_delta)
+		lifetime_expired = flt(account.lifetime_expired) + flt(lifetime_expired_delta)
 
 		frappe.db.set_value(
 			"Credit Account",
@@ -199,6 +201,7 @@ class AccountService:
 				"available_balance": available,
 				"lifetime_granted": lifetime_granted,
 				"lifetime_consumed": lifetime_consumed,
+				"lifetime_expired": lifetime_expired,
 			},
 			update_modified=False,
 		)

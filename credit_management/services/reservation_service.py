@@ -12,6 +12,7 @@ from credit_management.exceptions import (
 	InvalidCreditAmountError,
 )
 from credit_management.services.account_service import AccountService
+from credit_management.services.expiry_service import ExpiryService
 from credit_management.services.ledger_service import LedgerService
 
 ACTIVE_RESERVATION_STATUSES = ("Active", "Partially Consumed")
@@ -209,6 +210,18 @@ class ReservationService:
 			}
 		)
 		reservation.flags.ignore_links = True
+		allocations, _non_expiring = ExpiryService.reserve_from_expiry_lots(account, amount)
+		for row in allocations:
+			reservation.append(
+				"expiry_lot_allocations",
+				{
+					"expiry_lot": row["expiry_lot"],
+					"reserved_amount": row["reserved_amount"],
+					"consumed_amount": 0,
+					"released_amount": 0,
+				},
+			)
+
 		try:
 			reservation.insert(ignore_permissions=True)
 		except frappe.DuplicateEntryError:
@@ -285,6 +298,15 @@ class ReservationService:
 			)
 
 		remainder = flt(remaining - actual_amount)
+
+		ExpiryService.consume_reserved_from_expiry_lots(reservation, actual_amount)
+		lot_release = sum(
+			ExpiryService.allocation_remaining(row)
+			for row in reservation.expiry_lot_allocations
+		)
+		if lot_release > 0:
+			ExpiryService.release_reserved_expiry_lots(reservation, lot_release, account)
+
 		new_current = flt(account.current_balance) - actual_amount
 		new_reserved = flt(account.reserved_balance) - remaining
 
@@ -367,6 +389,8 @@ class ReservationService:
 				_("Reservation {0} has no remaining amount to release").format(reservation.name),
 				CreditReservationError,
 			)
+
+		ExpiryService.release_reserved_expiry_lots(reservation, release_amount, account)
 
 		new_reserved = flt(account.reserved_balance) - release_amount
 		account = AccountService.update_balances(account, reserved_balance=new_reserved)

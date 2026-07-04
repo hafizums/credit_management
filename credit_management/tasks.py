@@ -5,6 +5,7 @@
 Scheduler entry points. Business logic is delegated to services.
 """
 
+from credit_management.services.expiry_service import ExpiryService
 from credit_management.services.reservation_service import ReservationService
 
 
@@ -20,7 +21,7 @@ def reconcile_recent_accounts():
 
 def expire_credits():
 	"""Daily: expire remaining amounts on Credit Expiry Lots."""
-	return {"status": "stub", "task": "expire_credits"}
+	return ExpiryService.expire_credits()
 
 
 def generate_daily_credit_summary():

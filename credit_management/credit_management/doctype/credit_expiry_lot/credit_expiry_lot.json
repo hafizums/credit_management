@@ -1,0 +1,120 @@
+{
+ "actions": [],
+ "autoname": "format:CEL-{#####}",
+ "creation": "2026-07-04 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "credit_account",
+  "credit_type",
+  "original_amount",
+  "remaining_amount",
+  "reserved_amount",
+  "consumed_amount",
+  "expired_amount",
+  "expires_on",
+  "source_grant",
+  "status",
+  "metadata_json"
+ ],
+ "fields": [
+  {
+   "fieldname": "credit_account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Credit Account",
+   "options": "Credit Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "credit_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Credit Type",
+   "options": "Credit Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "original_amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Original Amount",
+   "reqd": 1
+  },
+  {
+   "fieldname": "remaining_amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Remaining Amount",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "reserved_amount",
+   "fieldtype": "Float",
+   "label": "Reserved Amount"
+  },
+  {
+   "default": "0",
+   "fieldname": "consumed_amount",
+   "fieldtype": "Float",
+   "label": "Consumed Amount"
+  },
+  {
+   "default": "0",
+   "fieldname": "expired_amount",
+   "fieldtype": "Float",
+   "label": "Expired Amount"
+  },
+  {
+   "fieldname": "expires_on",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Expires On",
+   "reqd": 1
+  },
+  {
+   "fieldname": "source_grant",
+   "fieldtype": "Link",
+   "label": "Source Grant",
+   "options": "Credit Grant"
+  },
+  {
+   "default": "Active",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Active\nExhausted\nExpired"
+  },
+  {
+   "fieldname": "metadata_json",
+   "fieldtype": "JSON",
+   "label": "Metadata JSON"
+  }
+ ],
+ "links": [],
+ "modified": "2026-07-04 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Credit Management",
+ "name": "Credit Expiry Lot",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

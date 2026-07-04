@@ -9,6 +9,7 @@ from frappe.utils import flt
 
 from credit_management.exceptions import InvalidCreditAmountError
 from credit_management.services.account_service import AccountService
+from credit_management.services.expiry_service import ExpiryService
 from credit_management.services.ledger_service import LedgerService
 
 
@@ -44,6 +45,9 @@ class ConsumeService:
 
 		amount = AccountService.round_amount(amount, account.credit_type)
 		AccountService.validate_sufficient_balance(account, amount)
+
+		if ExpiryService.get_active_lots(account.name, account.credit_type):
+			ExpiryService.consume_from_expiry_lots(account, amount)
 
 		new_balance = flt(account.current_balance) - amount
 

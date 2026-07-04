@@ -64,3 +64,14 @@
 | D-038 | Expire scheduler idempotency | `reservation:{name}:expire` on `RELEASE_RESERVE` | Safe to run hourly; replays skip existing ledger row |
 | D-039 | Reserve owner links | `ignore_links` on reservation insert | Same generic-owner pattern as Gate 2 accounts |
 | D-040 | Release status mapping | `Expired` (scheduler), `Cancelled` (reason contains cancel), else `Released` | Supports failure/cancel/timeout semantics |
+
+## Gate 4 — Expiry Lots
+
+| ID | Decision | Choice | Rationale |
+|---|---|---|---|
+| D-041 | `expires_on` with expiry disabled | Grant normally; **no** Credit Grant or expiry lot | Settings gate keeps non-expiring path simple |
+| D-042 | FIFO consumption | Earliest `expires_on` first, then non-expiring pool | Standard expiry-lot semantics |
+| D-043 | Reservation lot tracking | Child table `Credit Reservation Lot Allocation` | Links reserves/consumes/releases to specific lots |
+| D-044 | Reserved expired-lot policy | Scheduler expires only `remaining - reserved`; release from past-expiry lot **expires immediately** | Reserved hold protected; released credits cannot return to usable pool |
+| D-045 | Expire scheduler idempotency | `expiry-lot:{lot.name}:expire` on `EXPIRE` ledger entry | Safe for daily reruns |
+| D-046 | Partial reserved consume release | Auto-release all unused allocation rows after consume | Consistent with Gate 3 auto-release policy |

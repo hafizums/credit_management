@@ -10,7 +10,7 @@ Gate-by-gate implementation summaries for the production `credit_management` pla
 | 2 | Core Ledger | Complete | [gate_2_core_ledger.md](gate_2_core_ledger.md) |
 | 3 | Reservations | Complete | [gate_3_reservations.md](gate_3_reservations.md) |
 | 3.1 | Reservation Public API Fix | Complete | [gate_3_1_reservation_api_fix.md](gate_3_1_reservation_api_fix.md) |
-| 4 | Expiry Lots | Pending | — |
+| 4 | Expiry Lots | Complete | [gate_4_expiry_lots.md](gate_4_expiry_lots.md) |
 | 5 | Transfers and Adjustments | Pending | — |
 | 6 | Permissions and Workspace | Pending | — |
 | 7 | Reports and Reconciliation | Pending | — |

@@ -61,9 +61,10 @@ class TestGate1Scaffold(unittest.TestCase):
 		self.assertTrue(hasattr(tasks, "release_expired_reservations"))
 		self.assertEqual(tasks.release_expired_reservations()["status"], "completed")
 
+		self.assertEqual(tasks.expire_credits()["status"], "completed")
+
 		for name in (
 			"reconcile_recent_accounts",
-			"expire_credits",
 			"generate_daily_credit_summary",
 			"retry_failed_webhooks",
 		):

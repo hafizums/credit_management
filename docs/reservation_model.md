@@ -1,6 +1,6 @@
 # Reservation Model
 
-> Status: Gate 3 — implemented. Constraints below remain binding for future changes.
+> Status: Gate 4 — reservation lot allocations integrated with expiry lots. Constraints below remain binding.
 
 ## Gate 3 constraints (approved)
 

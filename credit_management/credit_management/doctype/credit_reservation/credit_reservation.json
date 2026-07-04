@@ -18,7 +18,9 @@
   "expires_at",
   "idempotency_key",
   "metadata_json",
-  "failure_reason"
+  "failure_reason",
+  "expiry_lot_allocations_section",
+  "expiry_lot_allocations"
  ],
  "fields": [
   {
@@ -107,6 +109,17 @@
    "fieldname": "failure_reason",
    "fieldtype": "Small Text",
    "label": "Failure Reason"
+  },
+  {
+   "fieldname": "expiry_lot_allocations_section",
+   "fieldtype": "Section Break",
+   "label": "Expiry Lot Allocations"
+  },
+  {
+   "fieldname": "expiry_lot_allocations",
+   "fieldtype": "Table",
+   "label": "Expiry Lot Allocations",
+   "options": "Credit Reservation Lot Allocation"
   }
  ],
  "links": [

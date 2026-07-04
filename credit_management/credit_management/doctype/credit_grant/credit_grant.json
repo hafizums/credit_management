@@ -1,24 +1,23 @@
 {
  "actions": [],
- "autoname": "format:CLE-{#####}",
+ "autoname": "format:CG-{#####}",
  "creation": "2026-07-04 00:00:00",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "credit_account",
   "credit_type",
-  "entry_type",
   "amount",
-  "balance_after",
-  "reserved_balance_after",
-  "reference_section",
+  "grant_reason",
+  "valid_from",
+  "expires_on",
+  "source_app",
   "reference_doctype",
   "reference_name",
-  "source_app",
   "idempotency_key",
-  "remarks",
   "metadata_json",
-  "reversed_entry"
+  "ledger_entry",
+  "status"
  ],
  "fields": [
   {
@@ -38,14 +37,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "entry_type",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Entry Type",
-   "options": "GRANT\nCONSUME\nREFUND\nADJUST_IN\nADJUST_OUT\nREVERSAL\nRESERVE\nRELEASE_RESERVE\nCONSUME_RESERVE\nEXPIRE",
-   "reqd": 1
-  },
-  {
    "fieldname": "amount",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -53,21 +44,24 @@
    "reqd": 1
   },
   {
-   "fieldname": "balance_after",
-   "fieldtype": "Float",
-   "label": "Balance After",
-   "read_only": 1
+   "fieldname": "grant_reason",
+   "fieldtype": "Data",
+   "label": "Grant Reason"
   },
   {
-   "fieldname": "reserved_balance_after",
-   "fieldtype": "Float",
-   "label": "Reserved Balance After",
-   "read_only": 1
+   "fieldname": "valid_from",
+   "fieldtype": "Date",
+   "label": "Valid From"
   },
   {
-   "fieldname": "reference_section",
-   "fieldtype": "Section Break",
-   "label": "Reference"
+   "fieldname": "expires_on",
+   "fieldtype": "Date",
+   "label": "Expires On"
+  },
+  {
+   "fieldname": "source_app",
+   "fieldtype": "Data",
+   "label": "Source App"
   },
   {
    "fieldname": "reference_doctype",
@@ -82,20 +76,10 @@
    "options": "reference_doctype"
   },
   {
-   "fieldname": "source_app",
-   "fieldtype": "Data",
-   "label": "Source App"
-  },
-  {
    "fieldname": "idempotency_key",
    "fieldtype": "Data",
    "label": "Idempotency Key",
    "unique": 1
-  },
-  {
-   "fieldname": "remarks",
-   "fieldtype": "Small Text",
-   "label": "Remarks"
   },
   {
    "fieldname": "metadata_json",
@@ -103,25 +87,38 @@
    "label": "Metadata JSON"
   },
   {
-   "fieldname": "reversed_entry",
+   "fieldname": "ledger_entry",
    "fieldtype": "Link",
-   "label": "Reversed Entry",
-   "options": "Credit Ledger Entry"
+   "label": "Ledger Entry",
+   "options": "Credit Ledger Entry",
+   "read_only": 1
+  },
+  {
+   "default": "Granted",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Draft\nGranted\nCancelled"
   }
  ],
- "is_submittable": 1,
- "links": [],
+ "links": [
+  {
+   "group": "Expiry",
+   "link_doctype": "Credit Expiry Lot",
+   "link_fieldname": "source_grant"
+  }
+ ],
  "modified": "2026-07-04 00:00:00",
  "modified_by": "Administrator",
  "module": "Credit Management",
- "name": "Credit Ledger Entry",
+ "name": "Credit Grant",
  "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
-   "cancel": 0,
    "create": 1,
-   "delete": 0,
+   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
@@ -129,7 +126,6 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
-   "submit": 1,
    "write": 1
   }
  ],
