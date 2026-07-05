@@ -3,6 +3,8 @@
 
 """Ledger-derived balance reconciliation and expiry-lot consistency checks."""
 
+import json
+
 import frappe
 from frappe import _
 from frappe.utils import add_to_date, flt, now_datetime
@@ -20,6 +22,25 @@ LIFETIME_CONSUMED_TYPES = frozenset({"CONSUME", "CONSUME_RESERVE"})
 LIFETIME_EXPIRED_TYPES = frozenset({"EXPIRE"})
 
 RECENT_WINDOW_HOURS = 24
+MAX_DETAILS_JSON_LENGTH = 500000
+MAX_STORED_ACCOUNT_DETAILS = 100
+
+ACCOUNT_SUMMARY_KEYS = (
+	"credit_account",
+	"status",
+	"expected_current_balance",
+	"actual_current_balance",
+	"expected_reserved_balance",
+	"actual_reserved_balance",
+	"expected_available_balance",
+	"actual_available_balance",
+	"current_difference",
+	"reserved_difference",
+	"available_difference",
+	"mismatch_count",
+	"error_count",
+	"error",
+)
 
 
 class ReconciliationService:
@@ -476,6 +497,57 @@ class ReconciliationService:
 		}
 
 	@staticmethod
+	def _compact_account_row_for_storage(row, *, include_nested_details=False):
+		compact = {key: row.get(key) for key in ACCOUNT_SUMMARY_KEYS if row.get(key) is not None}
+		if include_nested_details and row.get("details"):
+			compact["details"] = row["details"]
+		return compact
+
+	@staticmethod
+	def _compact_details_for_storage(account_results):
+		if not account_results:
+			return {"accounts": []}
+
+		non_passed = [row for row in account_results if row.get("status") != "Passed"]
+		passed_count = len(account_results) - len(non_passed)
+		stored = []
+
+		for index, row in enumerate(non_passed):
+			include_nested_details = index < 25
+			stored.append(
+				ReconciliationService._compact_account_row_for_storage(
+					row,
+					include_nested_details=include_nested_details,
+				)
+			)
+			if len(stored) >= MAX_STORED_ACCOUNT_DETAILS:
+				break
+
+		details = {
+			"accounts": stored,
+			"storage_summary": {
+				"total_accounts": len(account_results),
+				"passed_count": passed_count,
+				"mismatch_count": sum(1 for row in account_results if row.get("status") == "Mismatch"),
+				"failed_count": sum(1 for row in account_results if row.get("status") == "Failed"),
+				"stored_accounts": len(stored),
+				"truncated": len(account_results) > len(stored) or passed_count > 0,
+			},
+		}
+
+		serialized = json.dumps(details, default=str)
+		if len(serialized) > MAX_DETAILS_JSON_LENGTH:
+			details["accounts"] = [
+				ReconciliationService._compact_account_row_for_storage(row)
+				for row in stored[:50]
+			]
+			details["storage_summary"]["stored_accounts"] = len(details["accounts"])
+			details["storage_summary"]["truncated"] = True
+			details["storage_summary"]["size_truncated"] = True
+
+		return details
+
+	@staticmethod
 	def _create_run_doc(
 		*,
 		run_type,
@@ -491,7 +563,7 @@ class ReconciliationService:
 	):
 		details = result.get("details") or {}
 		if account_results is not None:
-			details["accounts"] = account_results
+			details = ReconciliationService._compact_details_for_storage(account_results)
 
 		doc = frappe.get_doc(
 			{
