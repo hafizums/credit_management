@@ -116,6 +116,7 @@ See [docs/testing_guide.md](docs/testing_guide.md).
 | 12 Video App Pilot Integration | Complete |
 | 13 Controlled Production Pilot | Complete |
 | 14 Operations Hardening | Complete |
+| 15 Performance and Scale Testing | Complete |
 
 ## Documentation index
 
