@@ -1,6 +1,30 @@
 # Operations Runbook
 
-> Status: Milestone 14 — operations hardening
+> Status: Milestone 17 — admin UX polish
+
+## Desk admin tools (Milestone 17)
+
+Open **Credit Management → Credit Admin Tools** (`credit-admin-tools` page) or use form actions on **Credit Reservation**.
+
+| Task | Who | How |
+|---|---|---|
+| Top up / grant credits | Credit Manager, System Manager | Admin Tools → Top Up; requires grant reason; uses `grant_credits` → `GRANT` ledger |
+| Refund credits | Credit Manager, System Manager | Admin Tools → Refund; requires refund reason; uses `refund_credits` → `REFUND` ledger |
+| Release stuck reservation | Credit Manager, System Manager | Admin Tools → Release, or **Release Reservation** button on reservation form |
+| Inspect account balance | All roles (scoped) | Admin Tools → Balance Quick View; Credit User sees own User account only |
+| Review reconciliation mismatches | Privileged roles | Admin Tools → Reconciliation Review; re-run is detect-only (no auto-repair) |
+
+**Before/after balances** are shown for grant/refund actions. All balance changes go through `credit_management.api` — never edit `Credit Account` balances directly.
+
+### Reviewing reconciliation mismatches (desk)
+
+1. Open **Credit Admin Tools → Reconciliation Review**
+2. Sort by status `Mismatch`; open the `Credit Reconciliation Run` form for details
+3. Use **Re-run** to execute detect-only `reconcile_account` (does not repair balances)
+4. Use **Ledger Report** shortcut filtered by account
+5. Open **Credit Account** form from run record
+
+There is **no auto-repair button**. Follow [reconciliation.md](reconciliation.md) for investigation.
 
 ## Daily checks
 
@@ -113,7 +137,7 @@ Uses `Credit Settings.audit_log_retention_days` (default 365). **Never deletes**
 
 1. Record approver, business reason, user email, amount, and credit type in change ticket
 2. Verify REST/webhooks remain disabled unless explicitly approved
-3. Grant via trusted API only:
+3. Grant via trusted API or Desk **Credit Admin Tools → Top Up** (Manager only):
 
 ```python
 import credit_management.api as credit_api

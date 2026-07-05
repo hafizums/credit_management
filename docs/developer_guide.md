@@ -100,12 +100,19 @@ def setUp(self):
 
 Run full platform tests: `bench --site <site> run-tests --app credit_management`
 
+## Desk admin UX vs integration API
+
+Milestone 17 adds Desk-only helpers (`credit_management.admin_ux`) for operators: top-up, refund, reservation release, balance inspection, reconciliation review.
+
+**Consuming apps must not call `admin_ux` from client code.** Use `credit_management.api` from trusted server-side code in your app, with your own authorization checks.
+
 ## Avoid coupling
 
 - Do not read/write `Credit Account` balance fields
 - Do not depend on internal service class signatures
 - Use `source_app` for attribution
 - Use webhooks/logs for observability, not business logic
+- Do not expose `admin_ux` whitelisted methods to untrusted browsers
 
 ## Examples index
 

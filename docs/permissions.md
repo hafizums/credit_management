@@ -113,3 +113,17 @@ See [rest_api.md](rest_api.md).
 ## Integration DocType access
 
 `Credit Integration Log` and `Credit Webhook Event`: privileged read (Manager, Auditor, Developer, System Manager). Credit User has no access.
+
+## Desk admin UX (Milestone 17)
+
+Whitelisted helpers in `credit_management.admin_ux` wrap the trusted Python API for Desk operators. They are **not** a substitute for consuming-app integration.
+
+| Action | Roles allowed | API used | Ledger entry |
+|---|---|---|---|
+| Top up credits | Credit Manager, System Manager | `grant_credits` | `GRANT` |
+| Refund credits | Credit Manager, System Manager | `refund_credits` | `REFUND` |
+| Release reservation | Credit Manager, System Manager | `release_reservation` | `RELEASE_RESERVE` |
+| Balance quick view | Credit User (own User account), privileged roles (all) | read-only | — |
+| Reconciliation review / re-run | Privileged read roles | `reconcile_account` (detect-only) | — |
+
+Credit User cannot top up, refund, or release reservations. Reconciliation re-run never mutates cached balances.

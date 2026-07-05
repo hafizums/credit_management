@@ -5,6 +5,31 @@
 
 import json
 
+METRIC_NUMBER_CARDS = (
+	"Total Credit Accounts",
+	"Active Reservations",
+	"Credits Consumed Today",
+	"Credits Reserved",
+	"Credits Expired Today",
+	"Failed Webhook Events",
+	"Recent Reconciliation Mismatches",
+	"Low Balance Accounts",
+)
+
+SHORTCUT_NAMES = (
+	"Credit Account",
+	"Credit Ledger Entry",
+	"Credit Reservation",
+	"Credit Grant",
+	"Credit Expiry Lot",
+	"Credit Transfer",
+	"Credit Reconciliation Run",
+	"Credit Integration Log",
+	"Credit Webhook Event",
+	"Credit Settings",
+	"Credit Admin Tools",
+)
+
 
 def build_workspace_content():
 	"""Build Frappe workspace content JSON referencing child-table widgets."""
@@ -21,7 +46,7 @@ def build_workspace_content():
 			"id": "cm-desc",
 			"type": "paragraph",
 			"data": {
-				"text": "Ledger, reservations, expiry lots, transfers, reconciliation, and reports.",
+				"text": "Ledger, reservations, expiry lots, transfers, reconciliation, reports, and admin tools.",
 				"col": 12,
 			},
 		},
@@ -32,15 +57,7 @@ def build_workspace_content():
 		},
 	]
 
-	for idx, name in enumerate(
-		(
-			"Total Credit Accounts",
-			"Active Reservations",
-			"Credits Reserved",
-			"Credits Consumed Today",
-			"Credits Expired Today",
-		)
-	):
+	for idx, name in enumerate(METRIC_NUMBER_CARDS):
 		blocks.append(
 			{
 				"id": f"cm-nc-{idx}",
@@ -57,18 +74,7 @@ def build_workspace_content():
 		}
 	)
 
-	for idx, name in enumerate(
-		(
-			"Credit Account",
-			"Credit Ledger Entry",
-			"Credit Reservation",
-			"Credit Grant",
-			"Credit Expiry Lot",
-			"Credit Transfer",
-			"Credit Type",
-			"Credit Settings",
-		)
-	):
+	for idx, name in enumerate(SHORTCUT_NAMES):
 		blocks.append(
 			{
 				"id": f"cm-sc-{idx}",
@@ -87,7 +93,7 @@ def build_workspace_content():
 	)
 
 	for idx, card_name in enumerate(
-		("Setup", "Accounts & Ledger", "Operations", "Reports")
+		("Setup", "Accounts & Ledger", "Operations", "Reports", "Admin Tools")
 	):
 		blocks.append(
 			{

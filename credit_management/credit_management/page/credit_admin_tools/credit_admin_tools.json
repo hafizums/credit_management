@@ -1,0 +1,31 @@
+{
+ "content": null,
+ "creation": "2026-07-05 00:00:00",
+ "docstatus": 0,
+ "doctype": "Page",
+ "modified": "2026-07-05 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Credit Management",
+ "name": "credit-admin-tools",
+ "owner": "Administrator",
+ "page_name": "credit-admin-tools",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Credit Manager"
+  },
+  {
+   "role": "Credit Auditor"
+  },
+  {
+   "role": "Credit Developer"
+  },
+  {
+   "role": "Credit User"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Credit Admin Tools"
+}

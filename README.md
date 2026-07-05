@@ -90,7 +90,12 @@ bench --site <site> migrate
 bench --site <site> run-tests --app credit_management
 bench --site <site> run-tests --app credit_management --module credit_management.tests.test_gate8_integration_layer
 bench --site <site> run-tests --app credit_management --module credit_management.tests.test_m16_security_review
+bench --site <site> run-tests --app credit_management --module credit_management.tests.test_m17_admin_ux
 ```
+
+## Admin UX (Desk)
+
+Credit Manager and System Manager can use **Credit Admin Tools** from the Credit Management workspace for top-ups, refunds, reservation release, balance inspection, and reconciliation review. All actions use `credit_management.api` and create normal ledger entries. See [operations_runbook.md](docs/operations_runbook.md).
 
 See [docs/testing_guide.md](docs/testing_guide.md).
 
@@ -118,6 +123,8 @@ See [docs/testing_guide.md](docs/testing_guide.md).
 | 13 Controlled Production Pilot | Complete |
 | 14 Operations Hardening | Complete |
 | 15 Performance and Scale Testing | Complete |
+| 16 Security Review | Complete |
+| 17 Admin UX Polish | Complete |
 
 ## Documentation index
 
