@@ -97,7 +97,7 @@ Pilot app: `dummy_website` (video generation pilot integration)
 
 ## Version tracking
 
-- Credit app version/commit: `0.0.1` / `fa6ef2f` (M14 operations hardening commit)
+- Credit app version/commit: `0.0.1` / `e5ced5c` (M14 operations hardening commit)
 - Dummy website version/commit: `0.0.1-m14` / `1f44aa4` (git initialized in bench)
 - Deployment manifest: `dummy_website/DEPLOYMENT.json`
 
