@@ -24,3 +24,4 @@ Gate-by-gate implementation summaries for the production `credit_management` pla
 | 13 | Controlled Production Pilot | Complete | [milestone_13_controlled_production_pilot.md](milestone_13_controlled_production_pilot.md) |
 | 14 | Operations Hardening | Complete | [milestone_14_operations_hardening.md](milestone_14_operations_hardening.md) |
 | 15 | Performance and Scale Testing | Complete | [milestone_15_performance_scale_testing.md](milestone_15_performance_scale_testing.md) |
+| 16 | Security Review | Complete | [milestone_16_security_review.md](milestone_16_security_review.md) |

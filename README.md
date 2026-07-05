@@ -89,6 +89,7 @@ Defaults seeded on install: `GENERAL` credit type, `Credit Settings`, credit rol
 bench --site <site> migrate
 bench --site <site> run-tests --app credit_management
 bench --site <site> run-tests --app credit_management --module credit_management.tests.test_gate8_integration_layer
+bench --site <site> run-tests --app credit_management --module credit_management.tests.test_m16_security_review
 ```
 
 See [docs/testing_guide.md](docs/testing_guide.md).
