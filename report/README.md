@@ -19,3 +19,4 @@ Gate-by-gate implementation summaries for the production `credit_management` pla
 | 8 | Integration Layer | Complete | [gate_8_integration_layer.md](gate_8_integration_layer.md) |
 | 9 | Documentation and Example Integration | Complete | [gate_9_documentation_example_integration.md](gate_9_documentation_example_integration.md) |
 | 10 | Full Verification | Complete | [gate_10_full_verification.md](gate_10_full_verification.md) |
+| 11 | Controlled Staging Deployment | Complete | [milestone_11_controlled_staging_deployment.md](milestone_11_controlled_staging_deployment.md) |
