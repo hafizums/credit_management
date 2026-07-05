@@ -304,7 +304,8 @@ class ReconciliationService:
 				current_balance += amount
 			elif entry_type in CURRENT_DECREASE:
 				current_balance -= amount
-			elif entry_type in RESERVED_INCREASE:
+
+			if entry_type in RESERVED_INCREASE:
 				reserved_balance += amount
 			elif entry_type in RESERVED_DECREASE:
 				reserved_balance -= amount
