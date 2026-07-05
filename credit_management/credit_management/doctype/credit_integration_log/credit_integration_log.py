@@ -15,6 +15,8 @@ class CreditIntegrationLog(Document):
 			)
 
 	def on_trash(self):
+		if frappe.flags.get("allow_integration_log_cleanup"):
+			return
 		frappe.throw(
 			_("Credit Integration Log records cannot be deleted"),
 			frappe.ValidationError,

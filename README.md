@@ -95,7 +95,7 @@ See [docs/testing_guide.md](docs/testing_guide.md).
 
 ## Development status
 
-| Gate | Status |
+| Gate / Milestone | Status |
 |---|---|
 | 0 Discovery | Complete |
 | 1 Architecture Scaffold | Complete |
@@ -112,6 +112,10 @@ See [docs/testing_guide.md](docs/testing_guide.md).
 | 8 Integration Layer | Complete |
 | 9 Documentation and Example Integration | Complete |
 | 10 Full Verification | Complete |
+| 11 Controlled Staging Deployment | Complete |
+| 12 Video App Pilot Integration | Complete |
+| 13 Controlled Production Pilot | Complete |
+| 14 Operations Hardening | Complete |
 
 ## Documentation index
 
@@ -130,6 +134,7 @@ See [docs/testing_guide.md](docs/testing_guide.md).
 | [rest_api.md](docs/rest_api.md) | Optional REST wrappers |
 | [webhooks.md](docs/webhooks.md) | Webhook events and retries |
 | [operations_runbook.md](docs/operations_runbook.md) | Day-2 operations |
+| [pilot_expansion_checklist.md](docs/pilot_expansion_checklist.md) | Controlled pilot expansion |
 | [developer_guide.md](docs/developer_guide.md) | Integrating another Frappe app |
 | [testing_guide.md](docs/testing_guide.md) | Running tests and smoke checks |
 | [upgrade_migration_notes.md](docs/upgrade_migration_notes.md) | MVP cleanup and migration |

@@ -234,6 +234,69 @@ class WebhookService:
 		doc.save(ignore_permissions=True)
 
 	@staticmethod
+	def list_failed_webhook_events(limit=100):
+		limit = int(limit or 100)
+		return frappe.get_all(
+			"Credit Webhook Event",
+			filters={"status": ["in", ["Failed", "Pending"]]},
+			fields=[
+				"name",
+				"event_type",
+				"status",
+				"retry_count",
+				"max_retries",
+				"next_retry_at",
+				"last_error",
+				"target_url",
+				"creation",
+			],
+			order_by="modified desc",
+			limit=limit,
+		)
+
+	@staticmethod
+	def cancel_exhausted_webhook_events(dry_run=True, limit=500):
+		limit = int(limit or 500)
+		events = frappe.get_all(
+			"Credit Webhook Event",
+			filters={"status": ["in", ["Failed", "Pending"]]},
+			fields=["name", "retry_count", "max_retries", "status"],
+			order_by="modified asc",
+			limit=limit,
+		)
+
+		eligible = [
+			row.name
+			for row in events
+			if int(row.retry_count or 0) >= int(row.max_retries or 5)
+		]
+		cancelled = 0
+
+		if dry_run:
+			return {
+				"status": "completed",
+				"dry_run": True,
+				"eligible": len(eligible),
+				"cancelled": 0,
+				"sample": eligible[:20],
+			}
+
+		for name in eligible:
+			doc = frappe.get_doc("Credit Webhook Event", name)
+			doc.status = "Cancelled"
+			doc.next_retry_at = None
+			doc.save(ignore_permissions=True)
+			cancelled += 1
+
+		frappe.db.commit()
+		return {
+			"status": "completed",
+			"dry_run": False,
+			"eligible": len(eligible),
+			"cancelled": cancelled,
+		}
+
+	@staticmethod
 	def _mark_failed(doc, error, schedule_retry=False):
 		doc.reload()
 		settings = WebhookService._settings()

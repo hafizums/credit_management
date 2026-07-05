@@ -22,3 +22,4 @@ Gate-by-gate implementation summaries for the production `credit_management` pla
 | 11 | Controlled Staging Deployment | Complete | [milestone_11_controlled_staging_deployment.md](milestone_11_controlled_staging_deployment.md) |
 | 12 | Video App Pilot Integration | Complete | [milestone_12_video_app_pilot.md](milestone_12_video_app_pilot.md) |
 | 13 | Controlled Production Pilot | Complete | [milestone_13_controlled_production_pilot.md](milestone_13_controlled_production_pilot.md) |
+| 14 | Operations Hardening | Complete | [milestone_14_operations_hardening.md](milestone_14_operations_hardening.md) |
